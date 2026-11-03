@@ -1,0 +1,1948 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-es="Documentación de Lunagen" data-en="Lunagen documentation">Lunagen documentation</title>
+<meta name="description" content="Lunagen documentation: installation, the model, how to describe an organism, metrics, optimization, the live window and the API reference." data-es="Documentación de Lunagen en español: instalación, el modelo, cómo describir un organismo, métricas, optimización, ventana en vivo y referencia de la API." data-en="Lunagen documentation: installation, the model, how to describe an organism, metrics, optimization, the live window and the API reference.">
+<link rel="canonical" href="https://satsh.org/lunagen/docs/">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="satsh">
+<meta property="og:title" content="Lunagen documentation">
+<meta property="og:description" content="Lunagen documentation: installation, the model, how to describe an organism, metrics, optimization, the live window and the API reference.">
+<meta property="og:url" content="https://satsh.org/lunagen/docs/">
+<meta property="og:image" content="https://satsh.org/assets/img/og-lunagen.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script>(function(){var r=document.documentElement;r.className=r.className.replace('no-js','js');var l=null;try{l=localStorage.getItem('satsh-lang')}catch(e){}if(l!=='es'&&l!=='en'){l=null;var a=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||navigator.userLanguage||'en'];for(var i=0;i<a.length;i++){var c=String(a[i]).toLowerCase();if(c.indexOf('es')===0){l='es';break}if(c.indexOf('en')===0){l='en';break}}}r.lang=l||'en';})();</script>
+</head>
+<body class="">
+<canvas id="stars" aria-hidden="true"></canvas>
+<a class="skip" href="#main"><span data-lang="es">Saltar al contenido</span><span data-lang="en">Skip to content</span></a>
+<header class="site-header">
+  <a class="brand" href="../../" aria-label="satsh">SATSH <small>/ Lunagen / Docs</small></a>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="nav" data-aria-es="Menú" data-aria-en="Menu" aria-label="Menu"><span></span></button>
+  <nav class="nav" id="nav">
+    <a href="../../lunagen/">Lunagen</a><a href="../../lunagen/docs/" aria-current="page"><span data-lang="es">Documentación</span><span data-lang="en">Documentation</span></a><a href="https://pypi.org/project/lunagen/" target="_blank" rel="noopener">PyPI&nbsp;↗</a>
+    <div class="lang" role="group" aria-label="Idioma / Language"><button data-set="es" type="button">ES</button><button data-set="en" type="button">EN</button></div>
+  </nav>
+</header>
+<main id="main">
+  <section class="docs-hero">
+    <p class="eyebrow">Lunagen · v0.1.1</p>
+    <h1 class="display"><span data-lang="es">Documentación</span><span data-lang="en">Documentation</span></h1>
+    <p><span data-lang="es">Todo lo que necesitas para simular, optimizar y visualizar cultivos con Lunagen: del primer ejemplo a la referencia de la API.</span><span data-lang="en">Everything you need to simulate, optimize and visualize cultures with Lunagen: from the first example to the API reference.</span></p>
+    <div class="docs-nav">
+      <a class="btn btn--ghost" href="../">← Lunagen</a>
+      <a class="btn btn--ghost" href="https://pypi.org/project/lunagen/" target="_blank" rel="noopener">PyPI ↗</a>
+    </div>
+  </section>
+  <div class="docs">
+    <button class="btn btn--ghost toc-toggle" type="button"><span data-lang="es">Contenido</span><span data-lang="en">Contents</span></button>
+    <nav class="toc" aria-label="Table of contents">
+      <p class="toc-title"><span data-lang="es">En esta página</span><span data-lang="en">On this page</span></p>
+      <div data-lang="es"><ul><li><a href="#es-1-qué-es-lunagen">1. Qué es lunagen</a></li><li><a href="#es-2-instalación">2. Instalación</a></li><li><a href="#es-3-inicio-rápido">3. Inicio rápido</a></li><li><a href="#es-4-cómo-funciona">4. Cómo funciona</a></li><li><a href="#es-5-el-modelo-de-simulación">5. El modelo de simulación</a></li><li><a href="#es-6-describir-un-organismo">6. Describir un organismo</a><ul><li><a href="#es-las-partes">Las partes</a></li></ul></li><li><a href="#es-7-curvas-de-respuesta">7. Curvas de respuesta</a></li><li><a href="#es-8-estudios-simular-evaluar-y-optimizar">8. Estudios: simular, evaluar y optimizar</a><ul><li><a href="#es-métodos">Métodos</a></li><li><a href="#es-optimize">optimize</a></li></ul></li><li><a href="#es-9-métricas-y-objetivos">9. Métricas y objetivos</a><ul><li><a href="#es-métricas-propias">Métricas propias</a></li><li><a href="#es-objetivos">Objetivos</a></li></ul></li><li><a href="#es-10-ventana-en-vivo">10. Ventana en vivo</a></li><li><a href="#es-11-archivos-que-se-generan">11. Archivos que se generan</a></li><li><a href="#es-12-configuración-con-json-y-terminal">12. Configuración con JSON y terminal</a></li><li><a href="#es-13-calibración">13. Calibración</a></li><li><a href="#es-14-paralelismo-y-reproducibilidad">14. Paralelismo y reproducibilidad</a></li><li><a href="#es-15-referencia-de-la-api">15. Referencia de la API</a></li><li><a href="#es-16-pruebas">16. Pruebas</a></li><li><a href="#es-17-limitaciones-y-preguntas-frecuentes">17. Limitaciones y preguntas frecuentes</a></li></ul></div><div data-lang="en"><ul><li><a href="#en-1-what-is-lunagen">1. What is lunagen</a></li><li><a href="#en-2-installation">2. Installation</a></li><li><a href="#en-3-quick-start">3. Quick start</a></li><li><a href="#en-4-how-it-works">4. How it works</a></li><li><a href="#en-5-the-simulation-model">5. The simulation model</a></li><li><a href="#en-6-describing-an-organism">6. Describing an organism</a><ul><li><a href="#en-the-parts">The parts</a></li></ul></li><li><a href="#en-7-response-curves">7. Response curves</a></li><li><a href="#en-8-studies-simulate-evaluate-and-optimize">8. Studies: simulate, evaluate and optimize</a><ul><li><a href="#en-methods">Methods</a></li><li><a href="#en-optimize">optimize</a></li></ul></li><li><a href="#en-9-metrics-and-objectives">9. Metrics and objectives</a><ul><li><a href="#en-custom-metrics">Custom metrics</a></li><li><a href="#en-objectives">Objectives</a></li></ul></li><li><a href="#en-10-live-window">10. Live window</a></li><li><a href="#en-11-files-that-are-generated">11. Files that are generated</a></li><li><a href="#en-12-configuration-with-json-and-the-terminal">12. Configuration with JSON and the terminal</a></li><li><a href="#en-13-calibration">13. Calibration</a></li><li><a href="#en-14-parallelism-and-reproducibility">14. Parallelism and reproducibility</a></li><li><a href="#en-15-api-reference">15. API reference</a></li><li><a href="#en-16-tests">16. Tests</a></li><li><a href="#en-17-limitations-and-frequently-asked-questions">17. Limitations and frequently asked questions</a></li></ul></div>
+    </nav>
+    <article class="prose">
+      <div data-lang="es" lang="es"><h2 id="es-1-qué-es-lunagen">1. Qué es lunagen</h2>
+<p><code>lunagen</code> simula un cultivo célula por célula (un <em>agente</em> por célula, vectorizado con NumPy) y
+permite <strong>buscar las condiciones que maximizan o minimizan lo que elijas</strong>. Cada célula tiene una
+reserva de energía, un ciclo de división propio, puede morir (por hambre, vejez o azar) y puede
+producir uno o varios compuestos.</p>
+<p>Nació de un proyecto de celulosa bacteriana (<em>Komagataeibacter xylinus</em>), y se generalizó para que
+el motor <strong>no dependa de ningún organismo</strong>: lo específico se declara. Con eso se puede:</p>
+<ul>
+<li>optimizar la producción de celulosa, de etanol, de proteína u otra biomasa;</li>
+<li>medir solo el <strong>tiempo de vida</strong>, solo la <strong>reproducción</strong> o cualquier otra métrica;</li>
+<li>elegir con <strong>qué variables</strong> operar y cuáles dejar fijas;</li>
+<li>animar cada simulación en una ventana de estilo ciencia ficción;</li>
+<li>exportar los mejores resultados a CSV, JSON y XML (para Unity).</li>
+</ul>
+<p>Un principio de diseño importante: las condiciones del cultivo <strong>no actúan mientras corre la
+simulación</strong>. Se traducen <strong>una sola vez</strong> a <em>parámetros efectivos</em>; con ellos constantes, el motor
+aplica siempre las mismas ecuaciones.</p>
+<h2 id="es-2-instalación">2. Instalación</h2>
+<p>Requisitos: Python 3.9 o superior (probado en 3.12) y NumPy.</p>
+<pre><code class="language-bash">pip install lunagen                  # núcleo
+pip install &quot;lunagen[viz]&quot;           # + pygame-ce y scipy para la ventana en vivo
+pip install lunagen-0.1.1-py3-none-any.whl     # desde el archivo .whl
+</code></pre>
+<ul>
+<li><strong>pygame-ce</strong> abre la ventana (<code>viz=True</code>). También funciona con <code>pygame</code> clásico, pero no instales
+  los dos a la vez: ambos se importan como <code>pygame</code> y se estorban. <code>pygame-ce</code> suele publicar versiones
+  precompiladas para los Python nuevos antes que <code>pygame</code>. Sin ninguno o sin pantalla, <code>optimize</code> sigue funcionando
+  y solo imprime en consola.</li>
+<li><strong>scipy</strong> es opcional: añade colisiones entre las cápsulas de la ventana. Sin él las células se
+  pueden solapar, pero todo lo demás es idéntico.</li>
+</ul>
+<p>Comprobar la instalación:</p>
+<pre><code class="language-bash">python -c &quot;import lunagen; print(lunagen.__version__)&quot;
+lunagen --metrics
+</code></pre>
+<h2 id="es-3-inicio-rápido">3. Inicio rápido</h2>
+<pre><code class="language-python">import lunagen as lg
+
+if __name__ == &quot;__main__&quot;:
+    organismo = lg.presets.komagataeibacter_xylinus()
+    estudio = lg.Study(organismo, objective=&quot;yield[cellulose]&quot;, workers=4)
+    resultado = estudio.optimize(samples=60, generations=8, population=16, viz=True)
+    print(resultado.best_conditions)       # las mejores condiciones
+    print(resultado.best_value)            # g/L de celulosa (validado con semillas nuevas)
+</code></pre>
+<p>Una simulación suelta, sin optimizar:</p>
+<pre><code class="language-python">res = estudio.simulate(temperature_c=29, ph=5.3)
+print(res.product_mg[&quot;cellulose&quot;], res.peak_alive, res.deaths_by_cause)
+</code></pre>
+<h2 id="es-4-cómo-funciona">4. Cómo funciona</h2>
+<pre><code> Condiciones ──► Organism.derive ──► Parámetros efectivos ──► Motor (simulate) ──► SimulationResult
+ (temperatura,        (leyes y                (constantes)         (agentes)               │
+  pH, glucosa…)        factores)                                                            ▼
+                                                                        Métricas ──► Objective ──► valor
+                                                                                                    ▲
+                                                           Study.optimize: línea base → exploración → refinamiento → validación
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Pieza</th>
+<th>Módulo</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Organism</code></td>
+<td><code>organism</code></td>
+<td>Describe el organismo: variables, factores, leyes, productos.</td>
+</tr>
+<tr>
+<td>motor <code>simulate</code></td>
+<td><code>engine</code></td>
+<td>Simula un cultivo. Determinista para una semilla.</td>
+</tr>
+<tr>
+<td>métricas / <code>Objective</code></td>
+<td><code>metrics</code></td>
+<td>Qué se mide y qué se optimiza.</td>
+</tr>
+<tr>
+<td><code>Study</code></td>
+<td><code>study</code></td>
+<td>Une todo: simula, evalúa y optimiza, con informes y exportación.</td>
+</tr>
+<tr>
+<td>ventana</td>
+<td><code>viz</code></td>
+<td>Anima cada simulación (se activa con <code>viz=True</code>).</td>
+</tr>
+<tr>
+<td><code>presets</code></td>
+<td><code>presets</code></td>
+<td>Organismos ya descritos (<em>Komagataeibacter xylinus</em>).</td>
+</tr>
+<tr>
+<td>respuestas</td>
+<td><code>responses</code></td>
+<td>Curvas combinables: <code>Cardinal</code>, <code>CPM</code>, <code>Saturation</code>…</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="es-5-el-modelo-de-simulación">5. El modelo de simulación</h2>
+<p>Unidades: tiempo en <strong>horas</strong>, masa en <strong>miligramos</strong> (por célula), longitudes en <strong>µm</strong>.
+En cada paso de tiempo <code>dt</code>, y para cada célula, en este orden:</p>
+<ol>
+<li><strong>Metabolismo.</strong> Con <code>c = nutriente_restante / nutriente_inicial</code>:
+   <code>toma = uptake_rate · c/(Ks + c) · (1 − reserva/capacidad) · dt</code>;
+   <code>reserva += toma · rendimiento</code>; <code>reserva −= mantenimiento · dt</code>.
+   Si entre todas piden más nutriente del que queda, se reparte proporcionalmente.</li>
+<li><strong>Muerte</strong> (prioridad: hambre, vejez, azar).
+   <em>Hambre:</em> reserva ≈ 0 durante <code>starvation_tolerance</code> horas.
+   <em>Vejez:</em> edad ≥ <code>max_lifespan</code> (solo si <code>max_lifespan &gt; 0</code>).
+   <em>Azar:</em> probabilidad <code>1 − exp(−random_death_rate · dt)</code>.</li>
+<li><strong>Crecimiento.</strong> <code>escala = clip(reserva / (umbral · capacidad), 0, 1)</code>; el reloj del ciclo avanza
+   <code>dt · escala</code> (más lento con poca reserva) y cuesta <code>growth_cost · dt · escala</code>. Con la población
+   llena (<code>max_agents</code>) no empiezan a crecer las células que aún no iniciaron el estrangulamiento.</li>
+<li><strong>Productos.</strong> Para cada producto: <code>masa = rate · factor_individual · escala_prod · dt</code>, y se gasta
+   <code>masa · cost</code> de reserva (nunca más reserva de la que hay).</li>
+<li><strong>División.</strong> Al completar el ciclo, la célula se divide en dos hijas que se reparten la reserva a
+   partes iguales; la hija hereda el factor individual de producción. Si no cabe, se dividen solo
+   algunas, elegidas al azar.</li>
+</ol>
+<p>Toda la aleatoriedad sale de una semilla, así que <strong>la misma semilla da exactamente el mismo
+resultado</strong>. Cada célula inicial tiene una fase distinta del ciclo y variación individual de ciclo y
+de producción (<code>variation</code>), que se hereda.</p>
+<h2 id="es-6-describir-un-organismo">6. Describir un organismo</h2>
+<p>Un <code>Organism</code> es una descripción <strong>declarativa</strong>. Mira <code>lunagen/presets.py</code> (xylinus) y
+<code>examples/03_new_organism.py</code> (levadura) como modelos (vienen en el código fuente del paquete, el <code>.tar.gz</code> de PyPI).</p>
+<pre><code class="language-python">import lunagen as lg
+from lunagen import Cardinal, CPM, Inhibition, Ref, Saturation
+
+org = lg.Organism(
+    name=&quot;Mi organismo&quot;,
+    nutrient_label=&quot;Azúcar&quot;,                     # nombre del nutriente (solo para mostrar)
+    variables=[                                  # qué se puede controlar
+        lg.Variable(&quot;temperature_c&quot;, 30.0, (20, 40), &quot;°C&quot;, &quot;Temperatura&quot;, &quot;{:.1f}&quot;),
+        lg.Variable(&quot;ph&quot;, 5.5, (4, 7), &quot;&quot;, &quot;pH&quot;, &quot;{:.2f}&quot;),
+        lg.Variable(&quot;sugar_gl&quot;, 40.0, (10, 100), &quot;g/L&quot;, &quot;Azúcar&quot;, &quot;{:.0f}&quot;),
+        lg.Variable(&quot;inoculum_pct&quot;, 5.0, (1, 15), &quot;%&quot;, &quot;Inóculo&quot;, &quot;{:.1f}&quot;),
+    ],
+    params=dict(base_cycle_h=2.0, base_uptake=0.04),          # números sueltos calibrables
+    factors={                                                  # respuestas entre 0 y 1
+        &quot;g_temp&quot;: Cardinal(&quot;temperature_c&quot;, 10, 31, 42),
+        &quot;g_ph&quot;: CPM(&quot;ph&quot;, 3.5, 5.5, 8.0),
+        &quot;growth&quot;: Ref(&quot;g_temp&quot;) * Ref(&quot;g_ph&quot;),
+        &quot;osmotic&quot;: Inhibition(&quot;sugar_gl&quot;, 80.0, 2),
+    },
+    laws={                                                     # condiciones -&gt; parámetros
+        &quot;n_initial&quot;: lambda v: round(v[&quot;inoculum_pct&quot;] * 40),
+        &quot;nutrient_mg&quot;: lambda v: v[&quot;sugar_gl&quot;] * v[&quot;volume_l&quot;] * 1000.0,
+        &quot;division_interval&quot;: lambda v: v[&quot;base_cycle_h&quot;] / max(v[&quot;growth&quot;], 1e-3),
+        &quot;uptake_rate&quot;: lambda v: v[&quot;base_uptake&quot;] * v[&quot;osmotic&quot;],
+        &quot;maintenance_rate&quot;: lambda v: 0.002,
+        &quot;random_death_rate&quot;: lambda v: 0.001 + 0.01 * (1 - v[&quot;g_temp&quot;]) ** 2,
+    },
+    products=[lg.Product(&quot;biomass_x&quot;, rate=0.004, law=Ref(&quot;growth&quot;), cost=2.0, label=&quot;Biomasa X&quot;)],
+)
+</code></pre>
+<h3 id="es-las-partes">Las partes</h3>
+<p><strong><code>variables</code></strong> — lista de <code>Variable(name, default, bounds, unit, label, fmt)</code>. Son las condiciones que
+se pueden fijar u optimizar. <code>bounds</code> son los límites de búsqueda por defecto.</p>
+<p><strong><code>params</code></strong> — diccionario de números sueltos que las leyes pueden leer (<code>v["base_cycle_h"]</code>). Sirven
+para calibrar sin tocar las fórmulas (<code>org.with_params(base_uptake=0.05)</code>).</p>
+<p><strong><code>derived</code></strong> (opcional) — variables calculadas a partir de otras, por ejemplo un pH efectivo:
+<code>derived={"ph_eff": lambda v: v["ph"] - 0.03 * max(0, v["glucose_gl"] - 10)}</code>.</p>
+<p><strong><code>factors</code></strong> — respuestas intermedias (normalmente entre 0 y 1), definidas con las
+<a href="#es-7-curvas-de-respuesta">curvas de respuesta</a>. Se evalúan en orden, así que un factor puede usar los
+anteriores con <code>Ref("nombre")</code>.</p>
+<p><strong><code>laws</code></strong> — traducen el entorno a los parámetros de la simulación. Cada ley recibe un diccionario <code>v</code>
+y devuelve un número. Son <strong>obligatorias</strong> estas seis:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Ley</th>
+<th>Significado</th>
+<th>Unidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>n_initial</code></td>
+<td>células iniciales (se limita a <code>[1, max_agents]</code>)</td>
+<td>células</td>
+</tr>
+<tr>
+<td><code>nutrient_mg</code></td>
+<td>nutriente total inicial del cultivo</td>
+<td>mg</td>
+</tr>
+<tr>
+<td><code>division_interval</code></td>
+<td>duración del ciclo celular (tope 10 000 h)</td>
+<td>h</td>
+</tr>
+<tr>
+<td><code>uptake_rate</code></td>
+<td>toma máxima de nutriente por célula</td>
+<td>mg/h</td>
+</tr>
+<tr>
+<td><code>maintenance_rate</code></td>
+<td>gasto de reserva por mantenimiento</td>
+<td>reserva/h</td>
+</tr>
+<tr>
+<td><code>random_death_rate</code></td>
+<td>mortalidad por azar</td>
+<td>1/h</td>
+</tr>
+</tbody>
+</table></div>
+<p>Además, <strong>cualquier campo de <code>Physiology</code></strong> puede ser una ley (p. ej. <code>max_lifespan</code> ligada al pH).
+Lo que ve una ley en <code>v</code>: los <code>params</code>, las variables, las derivadas, los factores y tres constantes
+de la simulación: <code>volume_l</code>, <code>duration_h</code>, <code>max_agents</code>.</p>
+<p><strong><code>products</code></strong> — uno o varios <code>Product(name, rate, law, cost, variation, reserve_threshold, label, unit, color)</code>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rate</code></td>
+<td>mg / h / célula en condiciones ideales</td>
+</tr>
+<tr>
+<td><code>law</code></td>
+<td>efecto del entorno que multiplica <code>rate</code> (una curva; <code>None</code> = constante)</td>
+</tr>
+<tr>
+<td><code>cost</code></td>
+<td>reserva consumida por cada mg producido</td>
+</tr>
+<tr>
+<td><code>variation</code></td>
+<td>variación individual (±), heredada por las hijas</td>
+</tr>
+<tr>
+<td><code>reserve_threshold</code></td>
+<td>fracción de la capacidad por debajo de la cual produce menos</td>
+</tr>
+<tr>
+<td><code>label</code>, <code>unit</code>, <code>color</code></td>
+<td>solo para mostrar (ventana e informes)</td>
+</tr>
+</tbody>
+</table></div>
+<p>El primer producto es el <strong>principal</strong>: es el que dibuja la ventana como fibras y el que usan por defecto
+las métricas sin argumento (<code>"yield"</code> = <code>"yield[&lt;primer producto&gt;]"</code>).</p>
+<p><strong><code>physiology</code></strong> (<code>Physiology</code>) — constantes del metabolismo y del ciclo:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Defecto</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>half_saturation</code></td>
+<td>0.1</td>
+<td>constante de saturación del nutriente (fracción del inicial)</td>
+</tr>
+<tr>
+<td><code>yield_coefficient</code></td>
+<td>0.5</td>
+<td>reserva ganada por mg de nutriente</td>
+</tr>
+<tr>
+<td><code>reserve_capacity</code></td>
+<td>0.05</td>
+<td>capacidad máxima de reserva</td>
+</tr>
+<tr>
+<td><code>initial_reserve</code></td>
+<td>0.6</td>
+<td>reserva inicial (fracción de la capacidad)</td>
+</tr>
+<tr>
+<td><code>growth_cost</code></td>
+<td>0.004</td>
+<td>reserva/h a velocidad de crecimiento completa</td>
+</tr>
+<tr>
+<td><code>growth_reserve_threshold</code></td>
+<td>0.3</td>
+<td>umbral de reserva para crecer a pleno ritmo</td>
+</tr>
+<tr>
+<td><code>division_variation</code></td>
+<td>0.2</td>
+<td>variación individual de la duración del ciclo (±)</td>
+</tr>
+<tr>
+<td><code>constriction_start</code></td>
+<td>0.7</td>
+<td>fracción del ciclo en que empieza el estrangulamiento (visual)</td>
+</tr>
+<tr>
+<td><code>max_lifespan</code></td>
+<td>0.0</td>
+<td>h; 0 = sin muerte por vejez</td>
+</tr>
+<tr>
+<td><code>starvation_tolerance</code></td>
+<td>4.0</td>
+<td>h con reserva ≈ 0 antes de morir</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong><code>morphology</code></strong> (<code>Morphology</code>) — <code>length_um</code>, <code>radius_um</code>, <code>length_variation</code>, <code>radius_variation</code>.
+Solo se usa para la ventana y para el XML de Unity.</p>
+<h2 id="es-7-curvas-de-respuesta">7. Curvas de respuesta</h2>
+<p>Se combinan con <code>*</code>, <code>+</code>, <code>-</code> y <code>**</code>. Todo parámetro numérico puede darse también como <strong>nombre de un
+parámetro</strong> (un texto), para calibrarlo sin tocar el código.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Curva</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Cardinal(var, mín, óptimo, máx)</code></td>
+<td>Campana asimétrica (CTMI, Rosso 1993). 0 / 1 / 0 en mín / óptimo / máx. Típica para temperatura. Falla al construirla si no es unimodal con esos valores.</td>
+</tr>
+<tr>
+<td><code>CPM(var, mín, óptimo, máx)</code></td>
+<td>Campana (Rosso 1995), unimodal para cualquier <code>mín &lt; óptimo &lt; máx</code>. Típica para pH.</td>
+</tr>
+<tr>
+<td><code>Saturation(var, k, vmax=1, normalized=True)</code></td>
+<td>Monod <code>x/(k+x)</code>. Normalizada vale 1 en el máximo.</td>
+</tr>
+<tr>
+<td><code>Inhibition(var, ki, order=2)</code></td>
+<td><code>1/(1+(x/ki)^orden)</code>: inhibición por exceso (sustrato, sal…).</td>
+</tr>
+<tr>
+<td><code>Q10(var, q10=2, ref=30)</code></td>
+<td>Se multiplica por <code>q10</code> cada +10 unidades sobre la referencia.</td>
+</tr>
+<tr>
+<td><code>Overload(var, start, end=1, penalty=0.5, vmax=1)</code></td>
+<td><code>1 − penalidad · smoothstep(inicio, fin, x)</code>: penaliza el exceso.</td>
+</tr>
+<tr>
+<td><code>Gaussian(var, mu, sigma)</code></td>
+<td>Campana simétrica.</td>
+</tr>
+<tr>
+<td><code>Hill(var, k, n=2)</code></td>
+<td>Respuesta sigmoidea.</td>
+</tr>
+<tr>
+<td><code>Linear(var, slope, intercept, lo, hi)</code></td>
+<td>Recta recortada a <code>[lo, hi]</code>.</td>
+</tr>
+<tr>
+<td><code>Ref(nombre)</code></td>
+<td>Valor ya calculado de otra variable, factor o parámetro.</td>
+</tr>
+<tr>
+<td><code>Const(valor)</code></td>
+<td>Constante.</td>
+</tr>
+<tr>
+<td><code>Func(f)</code></td>
+<td>Cualquier función propia: <code>Func(lambda v: v["ph"] * 2)</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Ejemplo (crecimiento de <em>K. xylinus</em>):
+<code>Cardinal("temperature_c", 12, 31, 40) * CPM("ph_eff", 3.5, 5.5, 8.0) * Saturation("aeration", 0.15)</code>.</p>
+<h2 id="es-8-estudios-simular-evaluar-y-optimizar">8. Estudios: simular, evaluar y optimizar</h2>
+<pre><code class="language-python">study = lg.Study(
+    organism,
+    objective=&quot;yield[cellulose]&quot;,      # métrica, diccionario ponderado u Objective
+    space=[&quot;temperature_c&quot;, &quot;ph&quot;],     # con qué variables operar (lista o {nombre: (mín, máx)})
+    fixed={&quot;glucose_gl&quot;: 30},          # variables que se dejan fijas
+    sim={&quot;duration_h&quot;: 96},            # opciones de SimConfig
+    replicas=3,                        # réplicas estocásticas por candidata
+    seed=12345,
+    workers=1,                         # procesos en paralelo
+    direction=None,                    # &quot;max&quot; | &quot;min&quot; (por defecto, el de la métrica)
+    constraints=[],                    # [(métrica, operador, valor)]
+)
+</code></pre>
+<ul>
+<li><strong><code>space</code></strong> admite una lista de nombres (usa los límites del organismo) o un diccionario para
+  cambiar los límites. Si se omite, se optimizan todas las variables que no estén en <code>fixed</code>.</li>
+<li>Las variables que no están ni en <code>space</code> ni en <code>fixed</code> se quedan en su valor por defecto.</li>
+<li><code>SimConfig</code>: <code>duration_h</code> (96), <code>dt_h</code> (0.1), <code>culture_volume_l</code> (0.05), <code>max_agents</code> (3000),
+  <code>record_every</code> (10). El volumen solo convierte masas totales en g/L.</li>
+</ul>
+<h3 id="es-métodos">Métodos</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>study.simulate(seed=None, observer=None, **condiciones)</code></td>
+<td>Una simulación → <code>SimulationResult</code>.</td>
+</tr>
+<tr>
+<td><code>study.evaluate(replicas=None, **condiciones)</code></td>
+<td>Varias réplicas + el objetivo → <code>Candidate</code>.</td>
+</tr>
+<tr>
+<td><code>study.metrics(nombres, seed=None, **condiciones)</code></td>
+<td>Valores de varias métricas para unas condiciones.</td>
+</tr>
+<tr>
+<td><code>study.conditions(**override)</code></td>
+<td>Condiciones por defecto + <code>fixed</code> + lo indicado.</td>
+</tr>
+<tr>
+<td><code>study.optimize(...)</code></td>
+<td>Búsqueda completa (abajo).</td>
+</tr>
+<tr>
+<td><code>Study.from_config(cfg)</code></td>
+<td>Construye el estudio desde un dict/JSON (devuelve <code>(estudio, opciones)</code>).</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="es-optimize"><code>optimize</code></h3>
+<pre><code class="language-python">resultado = study.optimize(
+    method=&quot;evolutionary&quot;,   # &quot;evolutionary&quot; | &quot;random&quot; | &quot;grid&quot;
+    samples=60,              # candidatas de la exploración (random y evolutionary)
+    generations=8,           # generaciones de refinamiento (solo evolutionary)
+    population=16,           # hijas por generación
+    finalists=3,             # candidatas que pasan a la validación
+    grid_levels=3,           # niveles por variable (solo grid)
+    sensitivity=True,        # informe de sensibilidad al final
+    out=&quot;output&quot;,            # carpeta de salida (None = no escribe archivos)
+    unity_sample=200,        # células fundadoras en el XML
+    viz=False,               # True abre la ventana en vivo
+    seconds_per_sim=4.0,     # duración en pantalla de cada simulación
+    fps=45, fullscreen=False,
+)
+</code></pre>
+<p>Etapas (todas se imprimen en consola, y salen también en el log de la ventana):</p>
+<ol>
+<li><strong>Línea base:</strong> condiciones por defecto, para comparar.</li>
+<li><strong>Exploración:</strong> muestreo Latin Hypercube (<code>evolutionary</code>), aleatorio (<code>random</code>) o malla completa (<code>grid</code>).</li>
+<li><strong>Refinamiento</strong> (solo <code>evolutionary</code>): cada generación muta a las mejores con ruido gaussiano de
+   paso decreciente (empieza en 0.15 del rango y se reduce; más rápido si no mejora).</li>
+<li><strong>Validación:</strong> las mejores se reevalúan con <strong>semillas nuevas</strong>, para no quedarse con una
+   candidata que ganó por suerte. El ganador es el mejor <em>validado</em>.</li>
+<li><strong>Informe:</strong> parámetros efectivos, métricas de una réplica, avisos (población limitada por el tope
+   o nutriente sin agotar) y sensibilidad a cada variable.</li>
+<li><strong>Exportación:</strong> CSV, JSON y XML.</li>
+</ol>
+<p>Devuelve un <code>StudyResult</code>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>best_conditions</code></td>
+<td><code>Conditions</code> ganadoras</td>
+</tr>
+<tr>
+<td><code>best_value</code>, <code>best_std</code></td>
+<td>valor y desviación del objetivo en la validación</td>
+</tr>
+<tr>
+<td><code>baseline_value</code>, <code>improvement_pct</code></td>
+<td>línea base y mejora relativa</td>
+</tr>
+<tr>
+<td><code>history</code>, <code>validated</code></td>
+<td>todas las candidatas evaluadas / las validadas</td>
+</tr>
+<tr>
+<td><code>sensitivity</code></td>
+<td><code>{variable: [(valor, objetivo), …]}</code></td>
+</tr>
+<tr>
+<td><code>replica_seed</code></td>
+<td>semilla de la réplica descrita y exportada</td>
+</tr>
+<tr>
+<td><code>simulations</code>, <code>elapsed_s</code>, <code>out_dir</code>, <code>interrupted</code></td>
+<td>datos de la ejecución</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>resultado.top(n)</code> devuelve las <code>n</code> mejores candidatas. Si cierras la ventana antes de terminar, el
+estudio se interrumpe y devuelve lo mejor encontrado hasta ese momento (<code>interrupted=True</code>).</p>
+<h2 id="es-9-métricas-y-objetivos">9. Métricas y objetivos</h2>
+<p>Una <strong>métrica</strong> es un número sacado de una simulación. Se pide por nombre; algunas llevan argumento
+entre corchetes (<code>"yield[ethanol]"</code>); sin argumento usan el primer producto (o, en <code>death_fraction</code>,
+la causa <code>starvation</code>).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Unidad</th>
+<th>Sentido</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>yield[p]</code></td>
+<td>g/L</td>
+<td>max</td>
+<td>Producto acumulado al final</td>
+</tr>
+<tr>
+<td><code>efficiency[p]</code></td>
+<td>g/g</td>
+<td>max</td>
+<td>Producto por nutriente inicial</td>
+</tr>
+<tr>
+<td><code>productivity[p]</code></td>
+<td>g/L/h</td>
+<td>max</td>
+<td>Rendimiento dividido entre la duración</td>
+</tr>
+<tr>
+<td><code>specific_production[p]</code></td>
+<td>mg/(cel·h)</td>
+<td>max</td>
+<td>Producto por célula y hora viva</td>
+</tr>
+<tr>
+<td><code>peak_population</code></td>
+<td>cel</td>
+<td>max</td>
+<td>Máximo de células vivas</td>
+</tr>
+<tr>
+<td><code>final_population</code></td>
+<td>cel</td>
+<td>max</td>
+<td>Células vivas al terminar</td>
+</tr>
+<tr>
+<td><code>time_to_peak_h</code></td>
+<td>h</td>
+<td>min</td>
+<td>Hora de la población máxima</td>
+</tr>
+<tr>
+<td><code>total_divisions</code></td>
+<td></td>
+<td>max</td>
+<td>Divisiones totales</td>
+</tr>
+<tr>
+<td><code>max_growth_rate</code></td>
+<td>1/h</td>
+<td>max</td>
+<td>Máxima tasa específica de crecimiento (media móvil de 3 puntos)</td>
+</tr>
+<tr>
+<td><code>doubling_time_h</code></td>
+<td>h</td>
+<td>min</td>
+<td>ln 2 / tasa máxima (la duración si no crece)</td>
+</tr>
+<tr>
+<td><code>mean_lifespan_h</code></td>
+<td>h</td>
+<td>max</td>
+<td>Tiempo medio de vida, desde el último nacimiento/división hasta la muerte</td>
+</tr>
+<tr>
+<td><code>median_lifespan_h</code></td>
+<td>h</td>
+<td>max</td>
+<td>Mediana del anterior</td>
+</tr>
+<tr>
+<td><code>max_lifespan_h</code></td>
+<td>h</td>
+<td>max</td>
+<td>Máximo observado (incluye a las que siguen vivas)</td>
+</tr>
+<tr>
+<td><code>survival_fraction</code></td>
+<td></td>
+<td>max</td>
+<td>1 − muertes / (células iniciales + divisiones)</td>
+</tr>
+<tr>
+<td><code>total_deaths</code></td>
+<td></td>
+<td>min</td>
+<td>Muertes totales</td>
+</tr>
+<tr>
+<td><code>extinction_time_h</code></td>
+<td>h</td>
+<td>max</td>
+<td>Hora en que muere la última célula (la duración si sobreviven)</td>
+</tr>
+<tr>
+<td><code>death_fraction[causa]</code></td>
+<td></td>
+<td>min</td>
+<td>Fracción de muertes por <code>starvation</code>, <code>age</code> o <code>random</code></td>
+</tr>
+<tr>
+<td><code>nutrient_consumed_fraction</code></td>
+<td></td>
+<td>max</td>
+<td>Fracción del nutriente inicial consumida</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Ojo con el tiempo de vida.</strong> Se mide desde el último nacimiento o división, así que
+<code>mean_lifespan_h</code> por sí sola premia condiciones donde las células casi no se dividen. Combínala con
+una restricción (<code>("final_population", "&gt;=", …)</code>) o con <code>survival_fraction</code>.</p>
+</blockquote>
+<h3 id="es-métricas-propias">Métricas propias</h3>
+<pre><code class="language-python">@lg.metric(&quot;viabilidad&quot;, unit=&quot;%&quot;, direction=&quot;max&quot;)
+def viabilidad(result, cond, ctx):
+    return 100 * result.final_alive / max(1, result.peak_alive)
+</code></pre>
+<p><code>result</code> es el <code>SimulationResult</code>, <code>cond</code> las <code>Conditions</code> y <code>ctx</code> tiene <code>.organism</code> y <code>.sim</code>. Con
+<code>workers &gt; 1</code>, defínela <strong>a nivel de módulo</strong> (fuera de funciones) para que exista también en los
+procesos hijos. Para métricas con argumento, mira <code>_factory</code> en <code>lunagen/metrics.py</code>.</p>
+<h3 id="es-objetivos">Objetivos</h3>
+<pre><code class="language-python">lg.Objective(&quot;yield&quot;)                                         # una métrica
+lg.Objective(&quot;doubling_time_h&quot;, direction=&quot;min&quot;)              # minimizar
+lg.Objective({&quot;yield[cellulose]&quot;: 1.0, &quot;survival_fraction&quot;: 2.0})   # suma ponderada
+lg.Objective(&quot;yield&quot;, constraints=[(&quot;final_population&quot;, &quot;&gt;=&quot;, 100)])
+</code></pre>
+<ul>
+<li>En una suma ponderada un peso <strong>negativo</strong> penaliza esa métrica.</li>
+<li>Una <strong>restricción</strong> incumplida resta <code>1000 · (1 + violación relativa)</code> (el optimizador la evita; no
+  se descarta la candidata). Operadores: <code>&gt;=</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&lt;</code>.</li>
+<li>Con restricciones violadas, los valores impresos ya incluyen la penalización.</li>
+<li>Con <code>Study</code> puedes pasar directamente un texto, un diccionario o un <code>Objective</code>.</li>
+</ul>
+<h2 id="es-10-ventana-en-vivo">10. Ventana en vivo</h2>
+<p><code>study.optimize(viz=True)</code> abre una ventana (requiere <code>pygame-ce</code>) y anima <strong>cada simulación</strong> de la
+búsqueda en cámara rápida. La simulación avanza al ritmo al que se dibuja.</p>
+<ul>
+<li><strong>Izquierda:</strong> caja Petri vista desde arriba (cada célula, una cápsula 2D) y, debajo, la telemetría
+  en tiempo real: tiempo, vivas, muertas, divisiones, reserva media, producto principal, nutriente
+  restante, causas de muerte y tres gráficas (con una línea gris para la mejor simulación hasta ahora).</li>
+<li><strong>Derecha:</strong> nombre del organismo y progreso global con tiempo estimado, condiciones y parámetros
+  efectivos de la simulación en curso, estado del optimizador y log con scroll.</li>
+</ul>
+<p><strong>Qué viene de la simulación y qué no.</strong> Todo es fiel a los datos: quién vive, muere (y de qué) o se
+divide; el <strong>tamaño</strong> de la cápsula es su fase del ciclo celular; el <strong>color</strong>, su reserva (rojo =
+vacía, cian = llena); la línea de <strong>estrangulamiento</strong> aparece al pasar <code>constriction_start</code>; las
+<strong>fibras</strong> son el producto principal realmente producido; el <strong>brillo ámbar</strong> del medio es el
+nutriente que queda. Lo único decorativo son las posiciones X/Y (el modelo no es espacial): las
+células se mueven con una física suave y las hijas nacen pegadas a su madre.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tecla</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ESPACIO</code></td>
+<td>pausa</td>
+</tr>
+<tr>
+<td><code>+</code> / <code>-</code></td>
+<td>velocidad de la animación</td>
+</tr>
+<tr>
+<td><code>S</code></td>
+<td>saltar la animación de la simulación en curso</td>
+</tr>
+<tr>
+<td><code>F</code></td>
+<td>animación activada/desactivada (el cálculo sigue a máxima velocidad)</td>
+</tr>
+<tr>
+<td><code>F11</code></td>
+<td>pantalla completa</td>
+</tr>
+<tr>
+<td>rueda del ratón, <code>RePág</code>, <code>AvPág</code>, <code>Inicio</code>, <code>Fin</code></td>
+<td>desplazar el log</td>
+</tr>
+<tr>
+<td><code>ESC</code> o cerrar la ventana</td>
+<td>salir (el estudio se interrumpe y devuelve lo mejor hasta entonces)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Si pygame-ce no está instalado o no hay pantalla, el estudio corre igual, solo en consola. Con
+<code>workers &gt; 1</code>, las réplicas de cada candidata (salvo la animada) se calculan en paralelo mientras se
+anima la primera.</p>
+<h2 id="es-11-archivos-que-se-generan">11. Archivos que se generan</h2>
+<p>Con <code>out="output"</code> (por defecto):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Archivo</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>evaluations.csv</code></td>
+<td>cada candidata: etapa, índice, valor de cada variable, media y desviación del objetivo</td>
+</tr>
+<tr>
+<td><code>results.json</code></td>
+<td>resumen: mejores condiciones, línea base, mejora, límites, fijas, simulación, sensibilidad, semillas</td>
+</tr>
+<tr>
+<td><code>best_unity.xml</code></td>
+<td>la mejor condición, simulada con la <code>replica_seed</code>, lista para Unity</td>
+</tr>
+</tbody>
+</table></div>
+<p>El XML tiene la raíz <code>&lt;Simulation&gt;</code> con: <code>&lt;Conditions&gt;</code> (una etiqueta por variable), <code>&lt;Metrics&gt;</code>
+(rendimiento de cada producto y métricas estándar, con su unidad), <code>&lt;Parameters&gt;</code> (los parámetros
+efectivos, con un <code>&lt;product&gt;</code> por producto) y <code>&lt;Founders&gt;</code> (muestra de <code>unity_sample</code> células
+iniciales con longitud, radio, fase del ciclo, reserva, destino y lo producido por su linaje:
+<code>celluloseMg</code>, <code>ethanolMg</code>…). El esquema es una propuesta y hay que alinearlo con el script que lo lee.</p>
+<h2 id="es-12-configuración-con-json-y-terminal">12. Configuración con JSON y terminal</h2>
+<p>Un estudio completo sin escribir código (solo con organismos de <code>presets</code>):</p>
+<pre><code class="language-json">{
+  &quot;organism&quot;: &quot;komagataeibacter_xylinus&quot;,
+  &quot;calibration&quot;: {&quot;base_uptake_rate&quot;: 0.04},
+  &quot;objective&quot;: &quot;yield[cellulose]&quot;,
+  &quot;direction&quot;: &quot;max&quot;,
+  &quot;constraints&quot;: [[&quot;final_population&quot;, &quot;&gt;=&quot;, 100]],
+  &quot;space&quot;: {&quot;temperature_c&quot;: [24, 34], &quot;ph&quot;: [4.5, 6.5]},
+  &quot;fixed&quot;: {&quot;glucose_gl&quot;: 30},
+  &quot;sim&quot;: {&quot;duration_h&quot;: 72},
+  &quot;replicas&quot;: 3,
+  &quot;seed&quot;: 12345,
+  &quot;workers&quot;: 1,
+  &quot;optimize&quot;: {&quot;samples&quot;: 20, &quot;generations&quot;: 3, &quot;population&quot;: 8, &quot;viz&quot;: false, &quot;out&quot;: &quot;output_config&quot;}
+}
+</code></pre>
+<p><code>space</code> puede ser una lista de nombres o un diccionario con límites; <code>objective</code> un texto o un
+diccionario de pesos; <code>optimize</code> admite los mismos argumentos que <code>Study.optimize</code>.</p>
+<pre><code class="language-python">lg.run(&quot;config.json&quot;)
+</code></pre>
+<pre><code class="language-bash">lunagen config.json            # equivale a: python -m lunagen config.json
+lunagen --metrics              # lista las métricas disponibles
+lunagen --version
+</code></pre>
+<p>Los organismos propios se describen en Python (contienen funciones); luego se pueden usar con <code>Study</code>
+como cualquier otro.</p>
+<h2 id="es-13-calibración">13. Calibración</h2>
+<p>Los presets son funciones cuyos argumentos son las perillas de calibración, todos con el valor del
+modelo original:</p>
+<pre><code class="language-python">org = lg.presets.komagataeibacter_xylinus(
+    base_uptake_rate=0.05,
+    growth_ph=(3.5, 5.6, 8.0),                  # (mín, óptimo, máx)
+    physiology=lg.Physiology(max_lifespan=48.0),
+)
+org2 = org.with_params(maintenance_q10=2.2)      # recalibrar parámetros sueltos de una copia
+org3 = org.replace(morphology=lg.Morphology(length_um=3.0))
+</code></pre>
+<p>Perillas de <em>K. xylinus</em>: <code>base_division_interval_h</code>, <code>base_uptake_rate</code>, <code>base_maintenance_rate</code>,
+<code>maintenance_q10</code>, <code>base_random_death_rate</code>, <code>stress_death_gain</code>, <code>agents_per_inoculum_pct</code>,
+<code>base_production_rate</code>, <code>production_variation</code>, <code>production_cost_per_unit</code>,
+<code>production_reserve_threshold</code>, <code>growth_temperature</code>, <code>production_temperature</code>, <code>growth_ph</code>,
+<code>production_ph</code>, <code>oxygen_half_saturation</code>, <code>oxygen_overload_start</code>, <code>oxygen_overload_penalty</code>,
+<code>glucose_inhibition</code>, <code>gluconic_threshold_gl</code>, <code>gluconic_ph_drop_per_gl</code>, <code>physiology</code>, <code>morphology</code>.</p>
+<p>Los efectos del entorno sobre las tasas (curvas cardinales, saturación de oxígeno, inhibición por
+glucosa…) son <strong>supuestos del modelo</strong>: están todos expuestos para calibrarlos con datos reales.
+Tras calibrar, conviene mantener una prueba que vuelva a los valores originales (ver §16).</p>
+<h2 id="es-14-paralelismo-y-reproducibilidad">14. Paralelismo y reproducibilidad</h2>
+<ul>
+<li><strong>Semillas.</strong> Todo es determinista para una semilla. La búsqueda usa <code>seed + 1000 + i</code> y la
+  validación <code>seed + 50000 + i</code>. Usar las mismas semillas para todas las candidatas hace la
+  comparación más justa.</li>
+<li><strong><code>workers</code>.</strong> Con <code>workers &gt; 1</code> se usan procesos (método <code>spawn</code>, seguro junto a la ventana). Solo
+  viajan datos entre procesos (parámetros y resultados), así que se pueden usar organismos con
+  funciones <code>lambda</code>. El script debe llevar el resguardo <code>if __name__ == "__main__":</code>.</li>
+<li>Las <strong>métricas propias</strong> deben estar definidas a nivel de módulo (ver §9).</li>
+<li><code>max_agents</code> limita el número de células vivas por rendimiento. Si el informe avisa de que la
+  población estuvo limitada por el tope, el resultado depende de ese tope: valora subirlo.</li>
+</ul>
+<h2 id="es-15-referencia-de-la-api">15. Referencia de la API</h2>
+<pre><code class="language-python">import lunagen as lg
+</code></pre>
+<p><strong>Núcleo</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lg.Study</code></td>
+<td>Simular, evaluar y optimizar (§8).</td>
+</tr>
+<tr>
+<td><code>lg.StudyResult</code>, <code>lg.Candidate</code></td>
+<td>Resultados de <code>optimize</code> y de una evaluación.</td>
+</tr>
+<tr>
+<td><code>lg.run(config)</code></td>
+<td>Ejecuta un estudio desde un dict o JSON.</td>
+</tr>
+<tr>
+<td><code>lg.Organism</code>, <code>lg.Variable</code>, <code>lg.Product</code>, <code>lg.Conditions</code></td>
+<td>Descripción del organismo (§6). <code>Conditions</code> es de solo lectura: <code>c["ph"]</code>, <code>c.ph</code>, <code>c.replace(ph=6)</code>, <code>c.to_dict()</code>.</td>
+</tr>
+<tr>
+<td><code>lg.SimConfig</code>, <code>lg.Physiology</code>, <code>lg.Morphology</code></td>
+<td>Configuración de simulación, fisiología y forma.</td>
+</tr>
+<tr>
+<td><code>lg.simulate(params, sim, seed, morphology, observer)</code></td>
+<td>Motor de bajo nivel; <code>params</code> sale de <code>Organism.derive(cond, sim)</code>.</td>
+</tr>
+<tr>
+<td><code>lg.SimulationResult</code></td>
+<td>Resultado de una simulación (abajo).</td>
+</tr>
+<tr>
+<td><code>lg.presets</code></td>
+<td><code>komagataeibacter_xylinus(...)</code>, <code>load(nombre, **calibración)</code>, <code>PRESETS</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Métricas y curvas</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lg.metric</code>, <code>lg.get_metric</code>, <code>lg.available_metrics</code></td>
+<td>Registrar, obtener y listar métricas.</td>
+</tr>
+<tr>
+<td><code>lg.Objective</code>, <code>lg.Metric</code>, <code>lg.Context</code>, <code>lg.report_values</code></td>
+<td>Objetivos y utilidades de informe.</td>
+</tr>
+<tr>
+<td><code>lg.Cardinal</code>, <code>CPM</code>, <code>Saturation</code>, <code>Inhibition</code>, <code>Q10</code>, <code>Overload</code>, <code>Gaussian</code>, <code>Hill</code>, <code>Linear</code>, <code>Const</code>, <code>Ref</code>, <code>Func</code>, <code>Effect</code></td>
+<td>Curvas de respuesta (§7).</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong><code>SimulationResult</code></strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>times</code>, <code>alive</code>, <code>dead</code>, <code>nutrient_mg</code>, <code>mean_reserve</code></td>
+<td>series temporales (un punto cada <code>record_every</code> pasos)</td>
+</tr>
+<tr>
+<td><code>product_series</code></td>
+<td><code>{producto: producido acumulado (mg) en el tiempo}</code></td>
+</tr>
+<tr>
+<td><code>product_mg</code></td>
+<td><code>{producto: total producido (mg)}</code></td>
+</tr>
+<tr>
+<td><code>nutrient_initial_mg</code>, <code>nutrient_final_mg</code></td>
+<td>nutriente inicial y final (mg)</td>
+</tr>
+<tr>
+<td><code>n_initial</code>, <code>duration_h</code>, <code>volume_l</code></td>
+<td>datos de la simulación</td>
+</tr>
+<tr>
+<td><code>peak_alive</code>, <code>time_of_peak_h</code>, <code>final_alive</code></td>
+<td>población</td>
+</tr>
+<tr>
+<td><code>total_deaths</code>, <code>deaths_by_cause</code>, <code>total_divisions</code>, <code>capped_steps</code></td>
+<td>eventos</td>
+</tr>
+<tr>
+<td><code>lifespans</code>, <code>survivor_ages</code>, <code>death_times</code></td>
+<td>tiempos de vida (h desde el último nacimiento/división)</td>
+</tr>
+<tr>
+<td><code>founders</code></td>
+<td>registro de las células iniciales (para Unity)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Observador.</strong> <code>simulate(..., observer=f)</code> llama a <code>f(StepInfo)</code> al final de cada paso con las
+células vivas (<code>uids</code>, <code>reserve</code>, <code>age_frac</code>), las muertes y divisiones de ese paso y los totales. El
+observador solo <strong>lee</strong>: los resultados son idénticos con o sin él. Así funciona la ventana.</p>
+<h2 id="es-16-pruebas">16. Pruebas</h2>
+<pre><code class="language-bash">python tests/test_regression.py     # la librería == el modelo original, bit a bit
+python tests/test_library.py        # métricas, objetivos, validaciones, varios productos, paralelo, exportación
+</code></pre>
+<p>Las pruebas vienen en el código fuente del paquete (el <code>.tar.gz</code> de PyPI). <code>test_regression.py</code> compara contra <code>tests/legacy_bacillus_model.py</code> (copia del modelo original):
+5 condiciones × 3 semillas, con parámetros, series, fundadoras y totales exactamente iguales. Si
+cambias el motor, esta prueba debe seguir pasando.</p>
+<h2 id="es-17-limitaciones-y-preguntas-frecuentes">17. Limitaciones y preguntas frecuentes</h2>
+<ul>
+<li><strong>Las posiciones X/Y de la ventana son decorativas.</strong> El modelo no es espacial.</li>
+<li><strong>Los efectos del entorno son supuestos</strong> (curvas, inhibición, ácido glucónico…). Calíbralos con datos
+  reales antes de sacar conclusiones biológicas.</li>
+<li><strong>El tiempo de vida se mide desde el último nacimiento o división</strong> (ver §9).</li>
+<li><strong>El esquema del XML</strong> para Unity es una propuesta: alinéalo con tu lector.</li>
+<li><strong>Rendimiento:</strong> cada simulación tarda decenas o cientos de milisegundos; la animación es lo que
+  consume tiempo (<code>seconds_per_sim</code>, o <code>F</code> para desactivarla).</li>
+<li><strong>¿Puedo usar un organismo propio con <code>lunagen config.json</code>?</strong> No: contienen funciones. Descríbelo en
+  Python y úsalo con <code>Study</code>.</li>
+<li><strong>¿Por qué <code>if __name__ == "__main__":</code>?</strong> Con varios procesos, cada proceso hijo vuelve a importar
+  el script; sin ese resguardo se relanzaría el estudio.</li>
+<li><strong>La ventana no abre.</strong> Instala <code>pygame-ce</code> (<code>pip install "lunagen[viz]"</code>); si no hay pantalla, el estudio
+  corre solo en consola.</li>
+</ul></div>
+      <div data-lang="en" lang="en"><h2 id="en-1-what-is-lunagen">1. What is lunagen</h2>
+<p><code>lunagen</code> simulates a culture cell by cell (one <em>agent</em> per cell, vectorized with NumPy) and lets you
+<strong>search for the conditions that maximize or minimize whatever you choose</strong>. Every cell has an energy
+reserve and its own division cycle, it can die (from starvation, old age or chance) and it can produce
+one or several compounds.</p>
+<p>It was born from a bacterial cellulose project (<em>Komagataeibacter xylinus</em>) and generalized so that the
+engine <strong>does not depend on any particular organism</strong>: everything specific is declared. With that you can:</p>
+<ul>
+<li>optimize the production of cellulose, ethanol, protein or any other biomass;</li>
+<li>measure only <strong>lifespan</strong>, only <strong>reproduction</strong>, or any other metric;</li>
+<li>choose <strong>which variables</strong> to work with and which to keep fixed;</li>
+<li>animate every simulation in a sci-fi style live window;</li>
+<li>export the best results to CSV, JSON and XML (for Unity).</li>
+</ul>
+<p>One important design principle: culture conditions <strong>do not act while the simulation runs</strong>. They are
+translated <strong>once</strong> into <em>effective parameters</em>; with those held constant, the engine always applies the
+same equations.</p>
+<h2 id="en-2-installation">2. Installation</h2>
+<p>Requirements: Python 3.9 or later (tested on 3.12) and NumPy.</p>
+<pre><code class="language-bash">pip install lunagen                  # core
+pip install &quot;lunagen[viz]&quot;           # + pygame-ce and scipy for the live window
+pip install lunagen-0.1.1-py3-none-any.whl     # from the .whl file
+</code></pre>
+<ul>
+<li><strong>pygame-ce</strong> opens the window (<code>viz=True</code>). It also works with classic <code>pygame</code>, but do not install
+  both at once: they are both imported as <code>pygame</code> and get in each other's way. <code>pygame-ce</code> usually
+  publishes prebuilt packages for new Python versions before <code>pygame</code> does. Without either one, or without
+  a display, <code>optimize</code> still works and just prints to the console.</li>
+<li><strong>scipy</strong> is optional: it adds collisions between the capsules in the window. Without it the cells can
+  overlap, but everything else is identical.</li>
+</ul>
+<p>Check the installation:</p>
+<pre><code class="language-bash">python -c &quot;import lunagen; print(lunagen.__version__)&quot;
+lunagen --metrics
+</code></pre>
+<h2 id="en-3-quick-start">3. Quick start</h2>
+<pre><code class="language-python">import lunagen as lg
+
+if __name__ == &quot;__main__&quot;:
+    organism = lg.presets.komagataeibacter_xylinus()
+    study = lg.Study(organism, objective=&quot;yield[cellulose]&quot;, workers=4)
+    result = study.optimize(samples=60, generations=8, population=16, viz=True)
+    print(result.best_conditions)       # the best conditions
+    print(result.best_value)            # g/L of cellulose (validated with fresh seeds)
+</code></pre>
+<p>A single simulation, without optimizing:</p>
+<pre><code class="language-python">res = study.simulate(temperature_c=29, ph=5.3)
+print(res.product_mg[&quot;cellulose&quot;], res.peak_alive, res.deaths_by_cause)
+</code></pre>
+<h2 id="en-4-how-it-works">4. How it works</h2>
+<pre><code> Conditions ──► Organism.derive ──► Effective parameters ──► Engine (simulate) ──► SimulationResult
+ (temperature,       (laws and             (constants)             (agents)               │
+  pH, glucose…)       factors)                                                             ▼
+                                                                      Metrics ──► Objective ──► value
+                                                                                                  ▲
+                                                     Study.optimize: baseline → exploration → refinement → validation
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Piece</th>
+<th>Module</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Organism</code></td>
+<td><code>organism</code></td>
+<td>Describes the organism: variables, factors, laws, products.</td>
+</tr>
+<tr>
+<td><code>simulate</code> engine</td>
+<td><code>engine</code></td>
+<td>Simulates one culture. Deterministic for a given seed.</td>
+</tr>
+<tr>
+<td>metrics / <code>Objective</code></td>
+<td><code>metrics</code></td>
+<td>What is measured and what is optimized.</td>
+</tr>
+<tr>
+<td><code>Study</code></td>
+<td><code>study</code></td>
+<td>Ties it all together: simulates, evaluates and optimizes, with reports and export.</td>
+</tr>
+<tr>
+<td>window</td>
+<td><code>viz</code></td>
+<td>Animates every simulation (enabled with <code>viz=True</code>).</td>
+</tr>
+<tr>
+<td><code>presets</code></td>
+<td><code>presets</code></td>
+<td>Ready-made organisms (<em>Komagataeibacter xylinus</em>).</td>
+</tr>
+<tr>
+<td>responses</td>
+<td><code>responses</code></td>
+<td>Composable curves: <code>Cardinal</code>, <code>CPM</code>, <code>Saturation</code>…</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="en-5-the-simulation-model">5. The simulation model</h2>
+<p>Units: time in <strong>hours</strong>, mass in <strong>milligrams</strong> (per cell), lengths in <strong>µm</strong>.
+At every time step <code>dt</code>, and for every cell, in this order:</p>
+<ol>
+<li><strong>Metabolism.</strong> With <code>c = remaining_nutrient / initial_nutrient</code>:
+   <code>uptake = uptake_rate · c/(Ks + c) · (1 − reserve/capacity) · dt</code>;
+   <code>reserve += uptake · yield</code>; <code>reserve −= maintenance · dt</code>.
+   If together the cells ask for more nutrient than is left, it is shared out proportionally.</li>
+<li><strong>Death</strong> (priority: starvation, old age, chance).
+   <em>Starvation:</em> reserve ≈ 0 for <code>starvation_tolerance</code> hours.
+   <em>Old age:</em> age ≥ <code>max_lifespan</code> (only if <code>max_lifespan &gt; 0</code>).
+   <em>Chance:</em> probability <code>1 − exp(−random_death_rate · dt)</code>.</li>
+<li><strong>Growth.</strong> <code>scale = clip(reserve / (threshold · capacity), 0, 1)</code>; the cycle clock advances
+   <code>dt · scale</code> (slower with a low reserve) and costs <code>growth_cost · dt · scale</code>. With a full population
+   (<code>max_agents</code>), cells that have not yet started constriction do not start growing.</li>
+<li><strong>Products.</strong> For each product: <code>mass = rate · individual_factor · product_scale · dt</code>, and
+   <code>mass · cost</code> of reserve is spent (never more reserve than is available).</li>
+<li><strong>Division.</strong> When the cycle is complete, the cell divides into two daughters that share the reserve
+   equally; the daughter inherits the individual production factor. If there is no room, only some divide,
+   chosen at random.</li>
+</ol>
+<p>All randomness comes from a seed, so <strong>the same seed gives exactly the same result</strong>. Every initial cell
+starts in a different phase of its cycle and has individual variation in cycle and production
+(<code>variation</code>), which is inherited.</p>
+<h2 id="en-6-describing-an-organism">6. Describing an organism</h2>
+<p>An <code>Organism</code> is a <strong>declarative</strong> description. See <code>lunagen/presets.py</code> (xylinus) and
+<code>examples/03_new_organism.py</code> (yeast) as models (both ship in the package's source distribution, the
+<code>.tar.gz</code> on PyPI).</p>
+<pre><code class="language-python">import lunagen as lg
+from lunagen import Cardinal, CPM, Inhibition, Ref, Saturation
+
+org = lg.Organism(
+    name=&quot;My organism&quot;,
+    nutrient_label=&quot;Sugar&quot;,                      # nutrient name (display only)
+    variables=[                                  # what can be controlled
+        lg.Variable(&quot;temperature_c&quot;, 30.0, (20, 40), &quot;°C&quot;, &quot;Temperature&quot;, &quot;{:.1f}&quot;),
+        lg.Variable(&quot;ph&quot;, 5.5, (4, 7), &quot;&quot;, &quot;pH&quot;, &quot;{:.2f}&quot;),
+        lg.Variable(&quot;sugar_gl&quot;, 40.0, (10, 100), &quot;g/L&quot;, &quot;Sugar&quot;, &quot;{:.0f}&quot;),
+        lg.Variable(&quot;inoculum_pct&quot;, 5.0, (1, 15), &quot;%&quot;, &quot;Inoculum&quot;, &quot;{:.1f}&quot;),
+    ],
+    params=dict(base_cycle_h=2.0, base_uptake=0.04),          # loose, tunable numbers
+    factors={                                                  # responses between 0 and 1
+        &quot;g_temp&quot;: Cardinal(&quot;temperature_c&quot;, 10, 31, 42),
+        &quot;g_ph&quot;: CPM(&quot;ph&quot;, 3.5, 5.5, 8.0),
+        &quot;growth&quot;: Ref(&quot;g_temp&quot;) * Ref(&quot;g_ph&quot;),
+        &quot;osmotic&quot;: Inhibition(&quot;sugar_gl&quot;, 80.0, 2),
+    },
+    laws={                                                     # conditions -&gt; parameters
+        &quot;n_initial&quot;: lambda v: round(v[&quot;inoculum_pct&quot;] * 40),
+        &quot;nutrient_mg&quot;: lambda v: v[&quot;sugar_gl&quot;] * v[&quot;volume_l&quot;] * 1000.0,
+        &quot;division_interval&quot;: lambda v: v[&quot;base_cycle_h&quot;] / max(v[&quot;growth&quot;], 1e-3),
+        &quot;uptake_rate&quot;: lambda v: v[&quot;base_uptake&quot;] * v[&quot;osmotic&quot;],
+        &quot;maintenance_rate&quot;: lambda v: 0.002,
+        &quot;random_death_rate&quot;: lambda v: 0.001 + 0.01 * (1 - v[&quot;g_temp&quot;]) ** 2,
+    },
+    products=[lg.Product(&quot;biomass_x&quot;, rate=0.004, law=Ref(&quot;growth&quot;), cost=2.0, label=&quot;Biomass X&quot;)],
+)
+</code></pre>
+<h3 id="en-the-parts">The parts</h3>
+<p><strong><code>variables</code></strong> — a list of <code>Variable(name, default, bounds, unit, label, fmt)</code>. These are the conditions
+that can be fixed or optimized. <code>bounds</code> are the default search limits.</p>
+<p><strong><code>params</code></strong> — a dictionary of loose numbers that the laws can read (<code>v["base_cycle_h"]</code>). They let you
+calibrate without touching the formulas (<code>org.with_params(base_uptake=0.05)</code>).</p>
+<p><strong><code>derived</code></strong> (optional) — variables computed from other ones, for example an effective pH:
+<code>derived={"ph_eff": lambda v: v["ph"] - 0.03 * max(0, v["glucose_gl"] - 10)}</code>.</p>
+<p><strong><code>factors</code></strong> — intermediate responses (normally between 0 and 1), defined with the
+<a href="#en-7-response-curves">response curves</a>. They are evaluated in order, so a factor can use the previous ones
+with <code>Ref("name")</code>.</p>
+<p><strong><code>laws</code></strong> — translate the environment into simulation parameters. Each law receives a dictionary <code>v</code>
+and returns a number. These six are <strong>required</strong>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Law</th>
+<th>Meaning</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>n_initial</code></td>
+<td>initial cells (limited to <code>[1, max_agents]</code>)</td>
+<td>cells</td>
+</tr>
+<tr>
+<td><code>nutrient_mg</code></td>
+<td>total initial nutrient of the culture</td>
+<td>mg</td>
+</tr>
+<tr>
+<td><code>division_interval</code></td>
+<td>length of the cell cycle (capped at 10 000 h)</td>
+<td>h</td>
+</tr>
+<tr>
+<td><code>uptake_rate</code></td>
+<td>maximum nutrient uptake per cell</td>
+<td>mg/h</td>
+</tr>
+<tr>
+<td><code>maintenance_rate</code></td>
+<td>reserve spent on maintenance</td>
+<td>reserve/h</td>
+</tr>
+<tr>
+<td><code>random_death_rate</code></td>
+<td>death by chance</td>
+<td>1/h</td>
+</tr>
+</tbody>
+</table></div>
+<p>In addition, <strong>any <code>Physiology</code> field</strong> can be a law (e.g. <code>max_lifespan</code> tied to pH).
+What a law sees in <code>v</code>: the <code>params</code>, the variables, the derived values, the factors and three simulation
+constants: <code>volume_l</code>, <code>duration_h</code>, <code>max_agents</code>.</p>
+<p><strong><code>products</code></strong> — one or several <code>Product(name, rate, law, cost, variation, reserve_threshold, label, unit, color)</code>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rate</code></td>
+<td>mg / h / cell in ideal conditions</td>
+</tr>
+<tr>
+<td><code>law</code></td>
+<td>environmental effect that multiplies <code>rate</code> (a curve; <code>None</code> = constant)</td>
+</tr>
+<tr>
+<td><code>cost</code></td>
+<td>reserve consumed per mg produced</td>
+</tr>
+<tr>
+<td><code>variation</code></td>
+<td>individual variation (±), inherited by the daughters</td>
+</tr>
+<tr>
+<td><code>reserve_threshold</code></td>
+<td>fraction of the capacity below which it produces less</td>
+</tr>
+<tr>
+<td><code>label</code>, <code>unit</code>, <code>color</code></td>
+<td>display only (window and reports)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The first product is the <strong>main</strong> one: it is the one the window draws as fibers and the one used by default
+by metrics without an argument (<code>"yield"</code> = <code>"yield[&lt;first product&gt;]"</code>).</p>
+<p><strong><code>physiology</code></strong> (<code>Physiology</code>) — constants of metabolism and the cycle:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>half_saturation</code></td>
+<td>0.1</td>
+<td>nutrient saturation constant (fraction of the initial amount)</td>
+</tr>
+<tr>
+<td><code>yield_coefficient</code></td>
+<td>0.5</td>
+<td>reserve gained per mg of nutrient</td>
+</tr>
+<tr>
+<td><code>reserve_capacity</code></td>
+<td>0.05</td>
+<td>maximum reserve capacity</td>
+</tr>
+<tr>
+<td><code>initial_reserve</code></td>
+<td>0.6</td>
+<td>initial reserve (fraction of capacity)</td>
+</tr>
+<tr>
+<td><code>growth_cost</code></td>
+<td>0.004</td>
+<td>reserve/h at full growth speed</td>
+</tr>
+<tr>
+<td><code>growth_reserve_threshold</code></td>
+<td>0.3</td>
+<td>reserve threshold for growing at full pace</td>
+</tr>
+<tr>
+<td><code>division_variation</code></td>
+<td>0.2</td>
+<td>individual variation of the cycle length (±)</td>
+</tr>
+<tr>
+<td><code>constriction_start</code></td>
+<td>0.7</td>
+<td>fraction of the cycle at which constriction starts (visual)</td>
+</tr>
+<tr>
+<td><code>max_lifespan</code></td>
+<td>0.0</td>
+<td>h; 0 = no death by old age</td>
+</tr>
+<tr>
+<td><code>starvation_tolerance</code></td>
+<td>4.0</td>
+<td>h with reserve ≈ 0 before dying</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong><code>morphology</code></strong> (<code>Morphology</code>) — <code>length_um</code>, <code>radius_um</code>, <code>length_variation</code>, <code>radius_variation</code>.
+Used only for the window and the Unity XML.</p>
+<h2 id="en-7-response-curves">7. Response curves</h2>
+<p>They combine with <code>*</code>, <code>+</code>, <code>-</code> and <code>**</code>. Any numeric parameter can also be given as the <strong>name of a
+parameter</strong> (a string), so you can calibrate without touching the code.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Curve</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Cardinal(var, min, optimum, max)</code></td>
+<td>Asymmetric bell (CTMI, Rosso 1993). 0 / 1 / 0 at min / optimum / max. Typical for temperature. Fails when built if it is not unimodal with those values.</td>
+</tr>
+<tr>
+<td><code>CPM(var, min, optimum, max)</code></td>
+<td>Bell (Rosso 1995), unimodal for any <code>min &lt; optimum &lt; max</code>. Typical for pH.</td>
+</tr>
+<tr>
+<td><code>Saturation(var, k, vmax=1, normalized=True)</code></td>
+<td>Monod <code>x/(k+x)</code>. Normalized, it equals 1 at the maximum.</td>
+</tr>
+<tr>
+<td><code>Inhibition(var, ki, order=2)</code></td>
+<td><code>1/(1+(x/ki)^order)</code>: inhibition by excess (substrate, salt…).</td>
+</tr>
+<tr>
+<td><code>Q10(var, q10=2, ref=30)</code></td>
+<td>Multiplied by <code>q10</code> for every +10 units above the reference.</td>
+</tr>
+<tr>
+<td><code>Overload(var, start, end=1, penalty=0.5, vmax=1)</code></td>
+<td><code>1 − penalty · smoothstep(start, end, x)</code>: penalizes excess.</td>
+</tr>
+<tr>
+<td><code>Gaussian(var, mu, sigma)</code></td>
+<td>Symmetric bell.</td>
+</tr>
+<tr>
+<td><code>Hill(var, k, n=2)</code></td>
+<td>Sigmoid response.</td>
+</tr>
+<tr>
+<td><code>Linear(var, slope, intercept, lo, hi)</code></td>
+<td>Line clipped to <code>[lo, hi]</code>.</td>
+</tr>
+<tr>
+<td><code>Ref(name)</code></td>
+<td>Already-computed value of another variable, factor or parameter.</td>
+</tr>
+<tr>
+<td><code>Const(value)</code></td>
+<td>Constant.</td>
+</tr>
+<tr>
+<td><code>Func(f)</code></td>
+<td>Any function of your own: <code>Func(lambda v: v["ph"] * 2)</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Example (growth of <em>K. xylinus</em>):
+<code>Cardinal("temperature_c", 12, 31, 40) * CPM("ph_eff", 3.5, 5.5, 8.0) * Saturation("aeration", 0.15)</code>.</p>
+<h2 id="en-8-studies-simulate-evaluate-and-optimize">8. Studies: simulate, evaluate and optimize</h2>
+<pre><code class="language-python">study = lg.Study(
+    organism,
+    objective=&quot;yield[cellulose]&quot;,      # metric, weighted dictionary or an Objective
+    space=[&quot;temperature_c&quot;, &quot;ph&quot;],     # which variables to work with (list or {name: (min, max)})
+    fixed={&quot;glucose_gl&quot;: 30},          # variables that stay fixed
+    sim={&quot;duration_h&quot;: 96},            # SimConfig options
+    replicas=3,                        # stochastic replicas per candidate
+    seed=12345,
+    workers=1,                         # parallel processes
+    direction=None,                    # &quot;max&quot; | &quot;min&quot; (by default, the metric's own)
+    constraints=[],                    # [(metric, operator, value)]
+)
+</code></pre>
+<ul>
+<li><strong><code>space</code></strong> accepts a list of names (using the organism's limits) or a dictionary to change the limits.
+  If omitted, every variable not in <code>fixed</code> is optimized.</li>
+<li>Variables that are in neither <code>space</code> nor <code>fixed</code> stay at their default value.</li>
+<li><code>SimConfig</code>: <code>duration_h</code> (96), <code>dt_h</code> (0.1), <code>culture_volume_l</code> (0.05), <code>max_agents</code> (3000),
+  <code>record_every</code> (10). The volume only converts total masses into g/L.</li>
+</ul>
+<h3 id="en-methods">Methods</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>study.simulate(seed=None, observer=None, **conditions)</code></td>
+<td>A single simulation → <code>SimulationResult</code>.</td>
+</tr>
+<tr>
+<td><code>study.evaluate(replicas=None, **conditions)</code></td>
+<td>Several replicas + the objective → <code>Candidate</code>.</td>
+</tr>
+<tr>
+<td><code>study.metrics(names, seed=None, **conditions)</code></td>
+<td>Values of several metrics for some conditions.</td>
+</tr>
+<tr>
+<td><code>study.conditions(**override)</code></td>
+<td>Default conditions + <code>fixed</code> + whatever you indicate.</td>
+</tr>
+<tr>
+<td><code>study.optimize(...)</code></td>
+<td>Full search (below).</td>
+</tr>
+<tr>
+<td><code>Study.from_config(cfg)</code></td>
+<td>Builds the study from a dict/JSON (returns <code>(study, options)</code>).</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="en-optimize"><code>optimize</code></h3>
+<pre><code class="language-python">result = study.optimize(
+    method=&quot;evolutionary&quot;,   # &quot;evolutionary&quot; | &quot;random&quot; | &quot;grid&quot;
+    samples=60,              # exploration candidates (random and evolutionary)
+    generations=8,           # refinement generations (evolutionary only)
+    population=16,           # daughters per generation
+    finalists=3,             # candidates that go on to validation
+    grid_levels=3,           # levels per variable (grid only)
+    sensitivity=True,        # sensitivity report at the end
+    out=&quot;output&quot;,            # output folder (None = write no files)
+    unity_sample=200,        # founder cells in the XML
+    viz=False,               # True opens the live window
+    seconds_per_sim=4.0,     # on-screen duration of each simulation
+    fps=45, fullscreen=False,
+)
+</code></pre>
+<p>Stages (all printed to the console, and also shown in the window's log):</p>
+<ol>
+<li><strong>Baseline:</strong> default conditions, for comparison.</li>
+<li><strong>Exploration:</strong> Latin Hypercube sampling (<code>evolutionary</code>), random (<code>random</code>) or a full grid (<code>grid</code>).</li>
+<li><strong>Refinement</strong> (<code>evolutionary</code> only): each generation mutates the best candidates with Gaussian noise
+   of decreasing step (starting at 0.15 of the range and shrinking; faster if there is no improvement).</li>
+<li><strong>Validation:</strong> the best ones are re-evaluated with <strong>fresh seeds</strong>, so you do not keep a candidate
+   that won by luck. The winner is the best <em>validated</em> one.</li>
+<li><strong>Report:</strong> effective parameters, single-replica metrics, warnings (population limited by the cap or
+   nutrient left over) and sensitivity to each variable.</li>
+<li><strong>Export:</strong> CSV, JSON and XML.</li>
+</ol>
+<p>It returns a <code>StudyResult</code>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>best_conditions</code></td>
+<td>winning <code>Conditions</code></td>
+</tr>
+<tr>
+<td><code>best_value</code>, <code>best_std</code></td>
+<td>value and deviation of the objective in validation</td>
+</tr>
+<tr>
+<td><code>baseline_value</code>, <code>improvement_pct</code></td>
+<td>baseline and relative improvement</td>
+</tr>
+<tr>
+<td><code>history</code>, <code>validated</code></td>
+<td>every candidate evaluated / the validated ones</td>
+</tr>
+<tr>
+<td><code>sensitivity</code></td>
+<td><code>{variable: [(value, objective), …]}</code></td>
+</tr>
+<tr>
+<td><code>replica_seed</code></td>
+<td>seed of the replica that is described and exported</td>
+</tr>
+<tr>
+<td><code>simulations</code>, <code>elapsed_s</code>, <code>out_dir</code>, <code>interrupted</code></td>
+<td>run data</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>result.top(n)</code> returns the <code>n</code> best candidates. If you close the window before it finishes, the study is
+interrupted and returns the best found so far (<code>interrupted=True</code>).</p>
+<h2 id="en-9-metrics-and-objectives">9. Metrics and objectives</h2>
+<p>A <strong>metric</strong> is a number extracted from a simulation. You ask for it by name; some take an argument in
+square brackets (<code>"yield[ethanol]"</code>); without an argument they use the first product (or, in
+<code>death_fraction</code>, the cause <code>starvation</code>).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Unit</th>
+<th>Direction</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>yield[p]</code></td>
+<td>g/L</td>
+<td>max</td>
+<td>Product accumulated at the end</td>
+</tr>
+<tr>
+<td><code>efficiency[p]</code></td>
+<td>g/g</td>
+<td>max</td>
+<td>Product per initial nutrient</td>
+</tr>
+<tr>
+<td><code>productivity[p]</code></td>
+<td>g/L/h</td>
+<td>max</td>
+<td>Yield divided by the duration</td>
+</tr>
+<tr>
+<td><code>specific_production[p]</code></td>
+<td>mg/(cell·h)</td>
+<td>max</td>
+<td>Product per cell per living hour</td>
+</tr>
+<tr>
+<td><code>peak_population</code></td>
+<td>cells</td>
+<td>max</td>
+<td>Maximum number of living cells</td>
+</tr>
+<tr>
+<td><code>final_population</code></td>
+<td>cells</td>
+<td>max</td>
+<td>Living cells at the end</td>
+</tr>
+<tr>
+<td><code>time_to_peak_h</code></td>
+<td>h</td>
+<td>min</td>
+<td>Hour of the maximum population</td>
+</tr>
+<tr>
+<td><code>total_divisions</code></td>
+<td></td>
+<td>max</td>
+<td>Total cell divisions</td>
+</tr>
+<tr>
+<td><code>max_growth_rate</code></td>
+<td>1/h</td>
+<td>max</td>
+<td>Maximum specific growth rate (3-point moving average)</td>
+</tr>
+<tr>
+<td><code>doubling_time_h</code></td>
+<td>h</td>
+<td>min</td>
+<td>ln 2 / maximum rate (the duration if it does not grow)</td>
+</tr>
+<tr>
+<td><code>mean_lifespan_h</code></td>
+<td>h</td>
+<td>max</td>
+<td>Mean lifespan, from the last birth/division to death</td>
+</tr>
+<tr>
+<td><code>median_lifespan_h</code></td>
+<td>h</td>
+<td>max</td>
+<td>Median of the above</td>
+</tr>
+<tr>
+<td><code>max_lifespan_h</code></td>
+<td>h</td>
+<td>max</td>
+<td>Maximum observed (includes cells still alive)</td>
+</tr>
+<tr>
+<td><code>survival_fraction</code></td>
+<td></td>
+<td>max</td>
+<td>1 − deaths / (initial cells + divisions)</td>
+</tr>
+<tr>
+<td><code>total_deaths</code></td>
+<td></td>
+<td>min</td>
+<td>Total deaths</td>
+</tr>
+<tr>
+<td><code>extinction_time_h</code></td>
+<td>h</td>
+<td>max</td>
+<td>Hour the last cell dies (the duration if some survive)</td>
+</tr>
+<tr>
+<td><code>death_fraction[cause]</code></td>
+<td></td>
+<td>min</td>
+<td>Fraction of deaths from <code>starvation</code>, <code>age</code> or <code>random</code></td>
+</tr>
+<tr>
+<td><code>nutrient_consumed_fraction</code></td>
+<td></td>
+<td>max</td>
+<td>Fraction of the initial nutrient consumed</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Careful with lifespan.</strong> It is measured from the last birth or division, so <code>mean_lifespan_h</code> on its
+own rewards conditions where cells barely divide. Combine it with a constraint
+(<code>("final_population", "&gt;=", …)</code>) or with <code>survival_fraction</code>.</p>
+</blockquote>
+<h3 id="en-custom-metrics">Custom metrics</h3>
+<pre><code class="language-python">@lg.metric(&quot;viability&quot;, unit=&quot;%&quot;, direction=&quot;max&quot;)
+def viability(result, cond, ctx):
+    return 100 * result.final_alive / max(1, result.peak_alive)
+</code></pre>
+<p><code>result</code> is the <code>SimulationResult</code>, <code>cond</code> the <code>Conditions</code>, and <code>ctx</code> has <code>.organism</code> and <code>.sim</code>. With
+<code>workers &gt; 1</code>, define it <strong>at module level</strong> (outside functions) so it also exists in the child processes.
+For metrics with an argument, see <code>_factory</code> in <code>lunagen/metrics.py</code>.</p>
+<h3 id="en-objectives">Objectives</h3>
+<pre><code class="language-python">lg.Objective(&quot;yield&quot;)                                         # one metric
+lg.Objective(&quot;doubling_time_h&quot;, direction=&quot;min&quot;)              # minimize
+lg.Objective({&quot;yield[cellulose]&quot;: 1.0, &quot;survival_fraction&quot;: 2.0})   # weighted sum
+lg.Objective(&quot;yield&quot;, constraints=[(&quot;final_population&quot;, &quot;&gt;=&quot;, 100)])
+</code></pre>
+<ul>
+<li>In a weighted sum, a <strong>negative</strong> weight penalizes that metric.</li>
+<li>A violated <strong>constraint</strong> subtracts <code>1000 · (1 + relative violation)</code> (the optimizer avoids it; the
+  candidate is not discarded). Operators: <code>&gt;=</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&lt;</code>.</li>
+<li>With violated constraints, the printed values already include the penalty.</li>
+<li>With <code>Study</code> you can pass a string, a dictionary or an <code>Objective</code> directly.</li>
+</ul>
+<h2 id="en-10-live-window">10. Live window</h2>
+<p><code>study.optimize(viz=True)</code> opens a window (requires <code>pygame-ce</code>) and animates <strong>every simulation</strong> of the
+search in fast motion. The simulation advances at the pace at which it is drawn.</p>
+<ul>
+<li><strong>Left:</strong> a Petri dish seen from above (every cell, a 2D capsule) and, below it, the real-time telemetry:
+  time, living, dead, divisions, mean reserve, main product, remaining nutrient, causes of death and three
+  charts (with a gray line for the best simulation so far).</li>
+<li><strong>Right:</strong> organism name and overall progress with estimated time, conditions and effective parameters of
+  the simulation in progress, optimizer status and a scrollable log.</li>
+</ul>
+<p><strong>What comes from the simulation and what does not.</strong> Everything is faithful to the data: who lives, dies
+(and from what) or divides; the <strong>size</strong> of the capsule is its phase of the cell cycle; the <strong>color</strong>, its
+reserve (red = empty, cyan = full); the <strong>constriction</strong> line appears past <code>constriction_start</code>; the
+<strong>fibers</strong> are the main product actually produced; the <strong>amber glow</strong> of the medium is the nutrient left.
+The only decorative thing is the X/Y positions (the model is not spatial): cells move with soft physics
+and daughters are born next to their mother.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SPACE</code></td>
+<td>pause</td>
+</tr>
+<tr>
+<td><code>+</code> / <code>-</code></td>
+<td>animation speed</td>
+</tr>
+<tr>
+<td><code>S</code></td>
+<td>skip the animation of the current simulation</td>
+</tr>
+<tr>
+<td><code>F</code></td>
+<td>animation on/off (the computation keeps going at full speed)</td>
+</tr>
+<tr>
+<td><code>F11</code></td>
+<td>fullscreen</td>
+</tr>
+<tr>
+<td>mouse wheel, <code>PgUp</code>, <code>PgDn</code>, <code>Home</code>, <code>End</code></td>
+<td>scroll the log</td>
+</tr>
+<tr>
+<td><code>ESC</code> or closing the window</td>
+<td>quit (the study is interrupted and returns the best found so far)</td>
+</tr>
+</tbody>
+</table></div>
+<p>If pygame-ce is not installed or there is no display, the study runs anyway, console only. With
+<code>workers &gt; 1</code>, the replicas of every candidate (except the animated one) are computed in parallel while the
+first one is animated.</p>
+<h2 id="en-11-files-that-are-generated">11. Files that are generated</h2>
+<p>With <code>out="output"</code> (the default):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>evaluations.csv</code></td>
+<td>every candidate: stage, index, value of each variable, mean and deviation of the objective</td>
+</tr>
+<tr>
+<td><code>results.json</code></td>
+<td>summary: best conditions, baseline, improvement, limits, fixed values, simulation, sensitivity, seeds</td>
+</tr>
+<tr>
+<td><code>best_unity.xml</code></td>
+<td>the best condition, simulated with <code>replica_seed</code>, ready for Unity</td>
+</tr>
+</tbody>
+</table></div>
+<p>The XML has the root <code>&lt;Simulation&gt;</code> with: <code>&lt;Conditions&gt;</code> (one tag per variable), <code>&lt;Metrics&gt;</code> (yield of each
+product and standard metrics, with their unit), <code>&lt;Parameters&gt;</code> (the effective parameters, with one
+<code>&lt;product&gt;</code> per product) and <code>&lt;Founders&gt;</code> (a sample of <code>unity_sample</code> initial cells with length, radius,
+cycle phase, reserve, fate and what their lineage produced: <code>celluloseMg</code>, <code>ethanolMg</code>…). The schema is a
+proposal and has to be aligned with the script that reads it.</p>
+<h2 id="en-12-configuration-with-json-and-the-terminal">12. Configuration with JSON and the terminal</h2>
+<p>A complete study without writing code (only with organisms from <code>presets</code>):</p>
+<pre><code class="language-json">{
+  &quot;organism&quot;: &quot;komagataeibacter_xylinus&quot;,
+  &quot;calibration&quot;: {&quot;base_uptake_rate&quot;: 0.04},
+  &quot;objective&quot;: &quot;yield[cellulose]&quot;,
+  &quot;direction&quot;: &quot;max&quot;,
+  &quot;constraints&quot;: [[&quot;final_population&quot;, &quot;&gt;=&quot;, 100]],
+  &quot;space&quot;: {&quot;temperature_c&quot;: [24, 34], &quot;ph&quot;: [4.5, 6.5]},
+  &quot;fixed&quot;: {&quot;glucose_gl&quot;: 30},
+  &quot;sim&quot;: {&quot;duration_h&quot;: 72},
+  &quot;replicas&quot;: 3,
+  &quot;seed&quot;: 12345,
+  &quot;workers&quot;: 1,
+  &quot;optimize&quot;: {&quot;samples&quot;: 20, &quot;generations&quot;: 3, &quot;population&quot;: 8, &quot;viz&quot;: false, &quot;out&quot;: &quot;output_config&quot;}
+}
+</code></pre>
+<p><code>space</code> can be a list of names or a dictionary with limits; <code>objective</code> a string or a dictionary of
+weights; <code>optimize</code> accepts the same arguments as <code>Study.optimize</code>.</p>
+<pre><code class="language-python">lg.run(&quot;config.json&quot;)
+</code></pre>
+<pre><code class="language-bash">lunagen config.json            # equivalent to: python -m lunagen config.json
+lunagen --metrics              # list the available metrics
+lunagen --version
+</code></pre>
+<p>Your own organisms are described in Python (they contain functions); after that you can use them with
+<code>Study</code> like any other.</p>
+<h2 id="en-13-calibration">13. Calibration</h2>
+<p>Presets are functions whose arguments are the calibration knobs, all set to the original model's values:</p>
+<pre><code class="language-python">org = lg.presets.komagataeibacter_xylinus(
+    base_uptake_rate=0.05,
+    growth_ph=(3.5, 5.6, 8.0),                  # (min, optimum, max)
+    physiology=lg.Physiology(max_lifespan=48.0),
+)
+org2 = org.with_params(maintenance_q10=2.2)      # recalibrate loose parameters of a copy
+org3 = org.replace(morphology=lg.Morphology(length_um=3.0))
+</code></pre>
+<p><em>K. xylinus</em> knobs: <code>base_division_interval_h</code>, <code>base_uptake_rate</code>, <code>base_maintenance_rate</code>,
+<code>maintenance_q10</code>, <code>base_random_death_rate</code>, <code>stress_death_gain</code>, <code>agents_per_inoculum_pct</code>,
+<code>base_production_rate</code>, <code>production_variation</code>, <code>production_cost_per_unit</code>,
+<code>production_reserve_threshold</code>, <code>growth_temperature</code>, <code>production_temperature</code>, <code>growth_ph</code>,
+<code>production_ph</code>, <code>oxygen_half_saturation</code>, <code>oxygen_overload_start</code>, <code>oxygen_overload_penalty</code>,
+<code>glucose_inhibition</code>, <code>gluconic_threshold_gl</code>, <code>gluconic_ph_drop_per_gl</code>, <code>physiology</code>, <code>morphology</code>.</p>
+<p>The effects of the environment on the rates (cardinal curves, oxygen saturation, glucose inhibition…) are
+<strong>model assumptions</strong>: all of them are exposed so you can calibrate them with real data. After calibrating,
+it is wise to keep a test that returns to the original values (see §16).</p>
+<h2 id="en-14-parallelism-and-reproducibility">14. Parallelism and reproducibility</h2>
+<ul>
+<li><strong>Seeds.</strong> Everything is deterministic for a given seed. The search uses <code>seed + 1000 + i</code> and the
+  validation <code>seed + 50000 + i</code>. Using the same seeds for every candidate makes the comparison fairer.</li>
+<li><strong><code>workers</code>.</strong> With <code>workers &gt; 1</code>, processes are used (the <code>spawn</code> method, safe alongside the window).
+  Only data travels between processes (parameters and results), so organisms with <code>lambda</code> functions can
+  be used. The script must have the <code>if __name__ == "__main__":</code> guard.</li>
+<li><strong>Custom metrics</strong> must be defined at module level (see §9).</li>
+<li><code>max_agents</code> limits the number of living cells for performance. If the report warns that the population
+  was limited by the cap, the result depends on that cap: consider raising it.</li>
+</ul>
+<h2 id="en-15-api-reference">15. API reference</h2>
+<pre><code class="language-python">import lunagen as lg
+</code></pre>
+<p><strong>Core</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lg.Study</code></td>
+<td>Simulate, evaluate and optimize (§8).</td>
+</tr>
+<tr>
+<td><code>lg.StudyResult</code>, <code>lg.Candidate</code></td>
+<td>Results of <code>optimize</code> and of an evaluation.</td>
+</tr>
+<tr>
+<td><code>lg.run(config)</code></td>
+<td>Runs a study from a dict or JSON.</td>
+</tr>
+<tr>
+<td><code>lg.Organism</code>, <code>lg.Variable</code>, <code>lg.Product</code>, <code>lg.Conditions</code></td>
+<td>Organism description (§6). <code>Conditions</code> is read-only: <code>c["ph"]</code>, <code>c.ph</code>, <code>c.replace(ph=6)</code>, <code>c.to_dict()</code>.</td>
+</tr>
+<tr>
+<td><code>lg.SimConfig</code>, <code>lg.Physiology</code>, <code>lg.Morphology</code></td>
+<td>Simulation, physiology and shape settings.</td>
+</tr>
+<tr>
+<td><code>lg.simulate(params, sim, seed, morphology, observer)</code></td>
+<td>Low-level engine; <code>params</code> comes from <code>Organism.derive(cond, sim)</code>.</td>
+</tr>
+<tr>
+<td><code>lg.SimulationResult</code></td>
+<td>Result of a simulation (below).</td>
+</tr>
+<tr>
+<td><code>lg.presets</code></td>
+<td><code>komagataeibacter_xylinus(...)</code>, <code>load(name, **calibration)</code>, <code>PRESETS</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Metrics and curves</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lg.metric</code>, <code>lg.get_metric</code>, <code>lg.available_metrics</code></td>
+<td>Register, get and list metrics.</td>
+</tr>
+<tr>
+<td><code>lg.Objective</code>, <code>lg.Metric</code>, <code>lg.Context</code>, <code>lg.report_values</code></td>
+<td>Objectives and report utilities.</td>
+</tr>
+<tr>
+<td><code>lg.Cardinal</code>, <code>CPM</code>, <code>Saturation</code>, <code>Inhibition</code>, <code>Q10</code>, <code>Overload</code>, <code>Gaussian</code>, <code>Hill</code>, <code>Linear</code>, <code>Const</code>, <code>Ref</code>, <code>Func</code>, <code>Effect</code></td>
+<td>Response curves (§7).</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong><code>SimulationResult</code></strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>times</code>, <code>alive</code>, <code>dead</code>, <code>nutrient_mg</code>, <code>mean_reserve</code></td>
+<td>time series (one point every <code>record_every</code> steps)</td>
+</tr>
+<tr>
+<td><code>product_series</code></td>
+<td><code>{product: accumulated production (mg) over time}</code></td>
+</tr>
+<tr>
+<td><code>product_mg</code></td>
+<td><code>{product: total produced (mg)}</code></td>
+</tr>
+<tr>
+<td><code>nutrient_initial_mg</code>, <code>nutrient_final_mg</code></td>
+<td>initial and final nutrient (mg)</td>
+</tr>
+<tr>
+<td><code>n_initial</code>, <code>duration_h</code>, <code>volume_l</code></td>
+<td>simulation data</td>
+</tr>
+<tr>
+<td><code>peak_alive</code>, <code>time_of_peak_h</code>, <code>final_alive</code></td>
+<td>population</td>
+</tr>
+<tr>
+<td><code>total_deaths</code>, <code>deaths_by_cause</code>, <code>total_divisions</code>, <code>capped_steps</code></td>
+<td>events</td>
+</tr>
+<tr>
+<td><code>lifespans</code>, <code>survivor_ages</code>, <code>death_times</code></td>
+<td>lifespans (h since the last birth/division)</td>
+</tr>
+<tr>
+<td><code>founders</code></td>
+<td>record of the initial cells (for Unity)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Observer.</strong> <code>simulate(..., observer=f)</code> calls <code>f(StepInfo)</code> at the end of every step with the living
+cells (<code>uids</code>, <code>reserve</code>, <code>age_frac</code>), that step's deaths and divisions, and the totals. The observer only
+<strong>reads</strong>: results are identical with or without it. This is how the window works.</p>
+<h2 id="en-16-tests">16. Tests</h2>
+<pre><code class="language-bash">python tests/test_regression.py     # the library == the original model, bit by bit
+python tests/test_library.py        # metrics, objectives, validations, several products, parallel, export
+</code></pre>
+<p>The tests ship in the package's source distribution (the <code>.tar.gz</code> on PyPI). <code>test_regression.py</code>
+compares against <code>tests/legacy_bacillus_model.py</code> (a copy of the original model): 5 conditions × 3 seeds,
+with parameters, series, founders and totals exactly equal. If you change the engine, this test must keep
+passing.</p>
+<h2 id="en-17-limitations-and-frequently-asked-questions">17. Limitations and frequently asked questions</h2>
+<ul>
+<li><strong>The X/Y positions in the window are decorative.</strong> The model is not spatial.</li>
+<li><strong>The effects of the environment are assumptions</strong> (curves, inhibition, gluconic acid…). Calibrate them
+  with real data before drawing biological conclusions.</li>
+<li><strong>Lifespan is measured from the last birth or division</strong> (see §9).</li>
+<li><strong>The Unity XML schema</strong> is a proposal: align it with your reader.</li>
+<li><strong>Performance:</strong> every simulation takes tens to hundreds of milliseconds; the animation is what takes
+  time (<code>seconds_per_sim</code>, or <code>F</code> to turn it off).</li>
+<li><strong>Can I use my own organism with <code>lunagen config.json</code>?</strong> No: they contain functions. Describe it in
+  Python and use it with <code>Study</code>.</li>
+<li><strong>Why <code>if __name__ == "__main__":</code>?</strong> With several processes, every child process imports the script
+  again; without that guard the study would be launched again.</li>
+<li><strong>The window does not open.</strong> Install <code>pygame-ce</code> (<code>pip install "lunagen[viz]"</code>); if there is no display,
+  the study runs console-only.</li>
+</ul></div>
+    </article>
+  </div>
+</main>
+<footer class="site-footer">
+  <a class="brand" href="../../">SATSH</a>
+  <div class="links">
+    <a href="../../lunagen/">Lunagen</a>
+    <a href="../../lunagen/docs/"><span data-lang="es">Documentación</span><span data-lang="en">Documentation</span></a>
+    <a href="https://impara.org" target="_blank" rel="noopener">Impara&nbsp;↗</a>
+    <a href="https://pypi.org/project/lunagen/" target="_blank" rel="noopener">PyPI&nbsp;↗</a>
+  </div>
+  <span>© <span data-year>2026</span> satsh</span>
+</footer>
+<script src="../../assets/js/site.js" defer></script>
+</body>
+</html>

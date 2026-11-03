@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-es="satsh — Proyectos de software y ciencia" data-en="satsh — Software &amp; science projects">satsh — Software &amp; science projects</title>
+<meta name="description" content="satsh home: Lunagen, a Python library to simulate and optimize cultures, and Impara, a language-learning Android app in development." data-es="Portada de satsh: Lunagen, una librería de Python para simular y optimizar cultivos, e Impara, una app de idiomas para Android en desarrollo." data-en="satsh home: Lunagen, a Python library to simulate and optimize cultures, and Impara, a language-learning Android app in development.">
+<link rel="canonical" href="https://satsh.org/">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="satsh">
+<meta property="og:title" content="satsh — Software &amp; science projects">
+<meta property="og:description" content="satsh home: Lunagen, a Python library to simulate and optimize cultures, and Impara, a language-learning Android app in development.">
+<meta property="og:url" content="https://satsh.org/">
+<meta property="og:image" content="https://satsh.org/assets/img/og-satsh.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>(function(){var r=document.documentElement;r.className=r.className.replace('no-js','js');var l=null;try{l=localStorage.getItem('satsh-lang')}catch(e){}if(l!=='es'&&l!=='en'){l=null;var a=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||navigator.userLanguage||'en'];for(var i=0;i<a.length;i++){var c=String(a[i]).toLowerCase();if(c.indexOf('es')===0){l='es';break}if(c.indexOf('en')===0){l='en';break}}}r.lang=l||'en';})();</script>
+</head>
+<body class="">
+<canvas id="stars" aria-hidden="true"></canvas>
+<a class="skip" href="#main"><span data-lang="es">Saltar al contenido</span><span data-lang="en">Skip to content</span></a>
+<header class="site-header">
+  <a class="brand" href="./" aria-label="satsh">SATSH </a>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="nav" data-aria-es="Menú" data-aria-en="Menu" aria-label="Menu"><span></span></button>
+  <nav class="nav" id="nav">
+    <a href="#projects"><span data-lang="es">Proyectos</span><span data-lang="en">Projects</span></a><a href="lunagen/">Lunagen</a><a href="https://impara.org" target="_blank" rel="noopener">Impara&nbsp;↗</a>
+    <div class="lang" role="group" aria-label="Idioma / Language"><button data-set="es" type="button">ES</button><button data-set="en" type="button">EN</button></div>
+  </nav>
+</header>
+<main id="main">
+
+  <section class="panel" id="top">
+    <div class="layer layer--glow" data-parallax="0.30"></div>
+    <div class="layer layer--limb" data-parallax="0.16"></div>
+    <div class="layer layer--haze"></div>
+    <div class="panel__content">
+      <p class="eyebrow reveal"><span data-lang="es">Proyectos de software y ciencia</span><span data-lang="en">Software &amp; science projects</span></p>
+      <h1 class="display reveal">SATSH</h1>
+      <p class="lead reveal"><span data-lang="es">Una firma para lo que construyo: herramientas para simular, explorar y aprender.</span><span data-lang="en">A signature for what I build: tools to simulate, explore and learn.</span></p>
+      <div class="actions reveal"><a class="btn" href="#projects"><span data-lang="es">Ver proyectos</span><span data-lang="en">View projects</span> <span class="arrow">↓</span></a></div>
+    </div>
+    <span class="scroll-hint" aria-hidden="true"></span>
+  </section>
+
+  <section class="panel" id="projects" aria-labelledby="p-lunagen">
+    <div class="layer layer--moon" data-parallax="0.14"><svg viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="mshade" cx="36%" cy="32%" r="78%">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".5" stop-color="#000" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".97"/>
+    </radialGradient>
+    <filter id="mtex" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.019 0.022" numOctaves="6" seed="9" result="n"/>
+      <feDiffuseLighting in="n" lighting-color="#ffffff" surfaceScale="5.2" diffuseConstant="1.25" result="lit">
+        <feDistantLight azimuth="220" elevation="42"/>
+      </feDiffuseLighting>
+      <feComponentTransfer in="lit" result="lit2"><feFuncR type="gamma" amplitude="1.15" exponent="1.35" offset="0"/><feFuncG type="gamma" amplitude="1.15" exponent="1.35" offset="0"/><feFuncB type="gamma" amplitude="1.17" exponent="1.35" offset="0"/></feComponentTransfer>
+      <feComposite in="lit2" in2="SourceGraphic" operator="in"/>
+    </filter>
+    <filter id="mblur"><feGaussianBlur stdDeviation="14"/></filter>
+    <clipPath id="mclip"><circle cx="300" cy="300" r="290"/></clipPath>
+  </defs>
+  <g clip-path="url(#mclip)">
+    <circle cx="300" cy="300" r="290" fill="#cdd1d7" filter="url(#mtex)"/>
+    <g filter="url(#mblur)" opacity=".5" fill="#05070b">
+      <ellipse cx="215" cy="215" rx="96" ry="70"/><ellipse cx="350" cy="170" rx="56" ry="44"/>
+      <ellipse cx="330" cy="355" rx="74" ry="56"/><ellipse cx="190" cy="380" rx="40" ry="32"/>
+    </g>
+    <circle cx="300" cy="300" r="290" fill="url(#mshade)"/>
+  </g>
+  <circle cx="300" cy="300" r="289.5" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+</svg></div>
+    <div class="layer layer--cells" data-parallax="0.06"><canvas data-cells="46" aria-hidden="true"></canvas></div>
+    <div class="layer layer--vignette"></div>
+    <div class="panel__content">
+      <p class="eyebrow reveal"><span data-lang="es">01 — Proyecto · Librería de Python</span><span data-lang="en">01 — Project · Python library</span></p>
+      <h2 class="display display--md reveal" id="p-lunagen">LUNAGEN</h2>
+      <p class="lead reveal"><span data-lang="es">Simulación de cultivos basada en agentes. Describe un organismo, elige qué optimizar y míralo trabajar en una ventana en vivo.</span><span data-lang="en">Agent-based culture simulation. Describe an organism, choose what to optimize and watch it work in a live window.</span></p>
+      <div class="actions reveal">
+        <a class="btn" href="lunagen/"><span data-lang="es">Explorar Lunagen</span><span data-lang="en">Explore Lunagen</span> <span class="arrow">→</span></a>
+        <a class="btn btn--ghost" href="lunagen/docs/"><span data-lang="es">Documentación</span><span data-lang="en">Documentation</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="impara" aria-labelledby="p-impara">
+    <div class="layer layer--warm" data-parallax="0.18"></div>
+    <span class="layer word" style="--x:6%;--y:14%;--s:clamp(44px,8vw,120px);--o:0.16" data-parallax="-0.3" aria-hidden="true" lang="und">Hola</span>
+    <span class="layer word word--out" style="--x:62%;--y:10%;--s:clamp(60px,12vw,190px);--o:0.13" data-parallax="-0.12" aria-hidden="true" lang="und">Hello</span>
+    <span class="layer word" style="--x:22%;--y:28%;--s:clamp(34px,6vw,92px);--o:0.2" data-parallax="-0.42" aria-hidden="true" lang="und">Bonjour</span>
+    <span class="layer word" style="--x:78%;--y:36%;--s:clamp(60px,10vw,160px);--o:0.15" data-parallax="-0.22" aria-hidden="true" lang="und">你好</span>
+    <span class="layer word word--out" style="--x:3%;--y:27%;--s:clamp(50px,9vw,140px);--o:0.12" data-parallax="-0.18" aria-hidden="true" lang="und">Ciao</span>
+    <span class="layer word" style="--x:52%;--y:58%;--s:clamp(34px,6vw,88px);--o:0.22" data-parallax="-0.5" aria-hidden="true" lang="und">こんにちは</span>
+    <span class="layer word word--out" style="--x:84%;--y:70%;--s:clamp(40px,7vw,110px);--o:0.14" data-parallax="-0.34" aria-hidden="true" lang="und">Olá</span>
+    <span class="layer word" style="--x:36%;--y:12%;--s:clamp(30px,5vw,72px);--o:0.17" data-parallax="-0.55" aria-hidden="true" lang="und">Hallo</span>
+    <span class="layer word" style="--x:70%;--y:84%;--s:clamp(30px,5vw,76px);--o:0.18" data-parallax="-0.26" aria-hidden="true" lang="und">Привет</span>
+    <span class="layer word" style="--x:40%;--y:80%;--s:clamp(44px,8vw,120px);--o:0.14" data-parallax="-0.4" aria-hidden="true" lang="und">안녕</span>
+    <div class="layer layer--vignette"></div>
+    <div class="panel__content">
+      <p class="eyebrow reveal"><span data-lang="es">02 — Proyecto · App para Android</span><span data-lang="en">02 — Project · Android app</span></p>
+      <span class="chip-status reveal"><span data-lang="es">En desarrollo</span><span data-lang="en">In development</span></span>
+      <h2 class="display display--md reveal" id="p-impara">IMPARA</h2>
+      <p class="lead reveal"><span data-lang="es">Una app para aprender idiomas en Android. Todavía en desarrollo.</span><span data-lang="en">A language-learning app for Android. Still in development.</span></p>
+      <div class="actions reveal">
+        <a class="btn" href="https://impara.org" target="_blank" rel="noopener"><span data-lang="es">Visitar impara.org</span><span data-lang="en">Visit impara.org</span> <span class="arrow">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bordered section--dark" aria-labelledby="all-projects">
+    <div class="section__inner">
+      <h2 class="title reveal" id="all-projects"><span data-lang="es">Todos los proyectos</span><span data-lang="en">All projects</span></h2>
+      <div class="index-list reveal">
+        <a href="lunagen/"><span class="n">01</span><span class="t"><strong>Lunagen</strong><small><span data-lang="es">Librería de Python · simulación y optimización de cultivos</span><span data-lang="en">Python library · culture simulation and optimization</span></small></span><span class="go">→</span></a>
+        <a href="https://impara.org" target="_blank" rel="noopener"><span class="n">02</span><span class="t"><strong>Impara</strong><small><span data-lang="es">App de idiomas para Android · en desarrollo</span><span data-lang="en">Language app for Android · in development</span></small></span><span class="go">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+<footer class="site-footer">
+  <a class="brand" href="./">SATSH</a>
+  <div class="links">
+    <a href="lunagen/">Lunagen</a>
+    <a href="lunagen/docs/"><span data-lang="es">Documentación</span><span data-lang="en">Documentation</span></a>
+    <a href="https://impara.org" target="_blank" rel="noopener">Impara&nbsp;↗</a>
+    <a href="https://pypi.org/project/lunagen/" target="_blank" rel="noopener">PyPI&nbsp;↗</a>
+  </div>
+  <span>© <span data-year>2026</span> satsh</span>
+</footer>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

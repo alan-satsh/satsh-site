@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-es="Lunagen — Simulación de cultivos basada en agentes" data-en="Lunagen — Agent-based culture simulation">Lunagen — Agent-based culture simulation</title>
+<meta name="description" content="Lunagen: a Python library to simulate cultures cell by cell, optimize conditions and watch it in a live window." data-es="Lunagen: librería de Python para simular cultivos célula por célula, optimizar condiciones y verlo en una ventana en vivo." data-en="Lunagen: a Python library to simulate cultures cell by cell, optimize conditions and watch it in a live window.">
+<link rel="canonical" href="https://satsh.org/lunagen/">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="satsh">
+<meta property="og:title" content="Lunagen — Agent-based culture simulation">
+<meta property="og:description" content="Lunagen: a Python library to simulate cultures cell by cell, optimize conditions and watch it in a live window.">
+<meta property="og:url" content="https://satsh.org/lunagen/">
+<meta property="og:image" content="https://satsh.org/assets/img/og-lunagen.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>(function(){var r=document.documentElement;r.className=r.className.replace('no-js','js');var l=null;try{l=localStorage.getItem('satsh-lang')}catch(e){}if(l!=='es'&&l!=='en'){l=null;var a=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||navigator.userLanguage||'en'];for(var i=0;i<a.length;i++){var c=String(a[i]).toLowerCase();if(c.indexOf('es')===0){l='es';break}if(c.indexOf('en')===0){l='en';break}}}r.lang=l||'en';})();</script>
+</head>
+<body class="">
+<canvas id="stars" aria-hidden="true"></canvas>
+<a class="skip" href="#main"><span data-lang="es">Saltar al contenido</span><span data-lang="en">Skip to content</span></a>
+<header class="site-header">
+  <a class="brand" href="../" aria-label="satsh">SATSH <small>/ Lunagen</small></a>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="nav" data-aria-es="Menú" data-aria-en="Menu" aria-label="Menu"><span></span></button>
+  <nav class="nav" id="nav">
+    <a href="#overview"><span data-lang="es">Resumen</span><span data-lang="en">Overview</span></a><a href="#how"><span data-lang="es">Cómo funciona</span><span data-lang="en">How it works</span></a><a href="#window"><span data-lang="es">Ventana en vivo</span><span data-lang="en">Live window</span></a><a href="../lunagen/docs/"><span data-lang="es">Documentación</span><span data-lang="en">Documentation</span></a><a href="https://pypi.org/project/lunagen/" target="_blank" rel="noopener">PyPI&nbsp;↗</a>
+    <div class="lang" role="group" aria-label="Idioma / Language"><button data-set="es" type="button">ES</button><button data-set="en" type="button">EN</button></div>
+  </nav>
+</header>
+<main id="main">
+
+  <section class="panel" id="top">
+    <div class="layer layer--moon" data-parallax="0.16"><svg viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="mshade" cx="36%" cy="32%" r="78%">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".5" stop-color="#000" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".97"/>
+    </radialGradient>
+    <filter id="mtex" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.019 0.022" numOctaves="6" seed="9" result="n"/>
+      <feDiffuseLighting in="n" lighting-color="#ffffff" surfaceScale="5.2" diffuseConstant="1.25" result="lit">
+        <feDistantLight azimuth="220" elevation="42"/>
+      </feDiffuseLighting>
+      <feComponentTransfer in="lit" result="lit2"><feFuncR type="gamma" amplitude="1.15" exponent="1.35" offset="0"/><feFuncG type="gamma" amplitude="1.15" exponent="1.35" offset="0"/><feFuncB type="gamma" amplitude="1.17" exponent="1.35" offset="0"/></feComponentTransfer>
+      <feComposite in="lit2" in2="SourceGraphic" operator="in"/>
+    </filter>
+    <filter id="mblur"><feGaussianBlur stdDeviation="14"/></filter>
+    <clipPath id="mclip"><circle cx="300" cy="300" r="290"/></clipPath>
+  </defs>
+  <g clip-path="url(#mclip)">
+    <circle cx="300" cy="300" r="290" fill="#cdd1d7" filter="url(#mtex)"/>
+    <g filter="url(#mblur)" opacity=".5" fill="#05070b">
+      <ellipse cx="215" cy="215" rx="96" ry="70"/><ellipse cx="350" cy="170" rx="56" ry="44"/>
+      <ellipse cx="330" cy="355" rx="74" ry="56"/><ellipse cx="190" cy="380" rx="40" ry="32"/>
+    </g>
+    <circle cx="300" cy="300" r="290" fill="url(#mshade)"/>
+  </g>
+  <circle cx="300" cy="300" r="289.5" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+</svg></div>
+    <div class="layer layer--cells" data-parallax="0.07"><canvas data-cells="90" aria-hidden="true"></canvas></div>
+    <div class="layer layer--vignette"></div>
+    <div class="panel__content">
+      <p class="eyebrow reveal"><span data-lang="es">satsh · librería de Python</span><span data-lang="en">satsh · Python library</span></p>
+      <h1 class="display reveal">LUNAGEN</h1>
+      <p class="lead reveal"><span data-lang="es">Simula un cultivo célula por célula y encuentra las condiciones óptimas. Configurable, optimizable y con visualización en vivo.</span><span data-lang="en">Simulate a culture cell by cell and find the optimal conditions. Configurable, optimizable and with a live visualization.</span></p>
+      <div class="reveal" style="margin:0 0 30px">
+        <div class="install"><code>pip install lunagen</code><button class="copy" type="button" data-copy="pip install lunagen"><span data-lang="es">Copiar</span><span data-lang="en">Copy</span></button></div>
+      </div>
+      <div class="actions reveal">
+        <a class="btn" href="docs/"><span data-lang="es">Documentación</span><span data-lang="en">Documentation</span> <span class="arrow">→</span></a>
+        <a class="btn btn--ghost" href="https://pypi.org/project/lunagen/" target="_blank" rel="noopener"><span data-lang="es">Ver en PyPI</span><span data-lang="en">View on PyPI</span> ↗</a>
+      </div>
+      <div class="badges reveal"><span class="badge">v0.1.1</span><span class="badge">Python 3.9+</span><span class="badge">MIT</span>
+        <span class="badge">lunagen[viz]</span></div>
+    </div>
+    <span class="scroll-hint" aria-hidden="true"></span>
+  </section>
+
+  <section class="section section--dark" id="overview" aria-labelledby="t-overview">
+    <div class="section__inner">
+      <p class="eyebrow reveal"><span data-lang="es">Resumen</span><span data-lang="en">Overview</span></p>
+      <h2 class="title reveal" id="t-overview"><span data-lang="es">De la célula al óptimo</span><span data-lang="en">From the cell to the optimum</span></h2>
+      <p class="lead reveal"><span data-lang="es">El motor no sabe nada de ningún organismo concreto: todo lo específico se declara. Con el mismo código puedes estudiar celulosa bacteriana, ácido láctico, etanol, tiempo de vida o reproducción.</span><span data-lang="en">The engine knows nothing about any particular organism: everything specific is declared. With the same code you can study bacterial cellulose, lactic acid, ethanol, lifespan or reproduction.</span></p>
+      <div class="grid grid--3" style="margin-top:56px">
+        <div class="feature reveal"><div class="num">01</div><h3><span data-lang="es">Simula</span><span data-lang="en">Simulate</span></h3>
+          <p><span data-lang="es">Un agente por célula: metabolismo, crecimiento, división, muerte y producción de uno o varios compuestos. Determinista para cada semilla.</span><span data-lang="en">One agent per cell: metabolism, growth, division, death and production of one or several compounds. Deterministic for every seed.</span></p></div>
+        <div class="feature reveal"><div class="num">02</div><h3><span data-lang="es">Optimiza</span><span data-lang="en">Optimize</span></h3>
+          <p><span data-lang="es">Exploración, refinamiento evolutivo y validación con semillas nuevas. Maximiza o minimiza lo que definas, con restricciones y varios objetivos.</span><span data-lang="en">Exploration, evolutionary refinement and validation with fresh seeds. Maximize or minimize whatever you define, with constraints and several goals.</span></p></div>
+        <div class="feature reveal"><div class="num">03</div><h3><span data-lang="es">Declara</span><span data-lang="en">Declare</span></h3>
+          <p><span data-lang="es">Variables, curvas de respuesta y productos descritos en unas decenas de líneas. Recalibra con perillas, sin tocar el motor.</span><span data-lang="en">Variables, response curves and products described in a few dozen lines. Recalibrate with knobs, without touching the engine.</span></p></div>
+        <div class="feature reveal"><div class="num">04</div><h3><span data-lang="es">Visualiza</span><span data-lang="en">Visualize</span></h3>
+          <p><span data-lang="es">Cada simulación se anima en cámara rápida: caja Petri, telemetría en tiempo real, optimizador y log, estilo consola de ciencia ficción.</span><span data-lang="en">Every simulation is animated in fast motion: Petri dish, real-time telemetry, optimizer and log, in a sci-fi console style.</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bordered section--dark" id="how" aria-labelledby="t-how">
+    <div class="section__inner">
+      <p class="eyebrow reveal"><span data-lang="es">Cómo funciona</span><span data-lang="en">How it works</span></p>
+      <h2 class="title reveal" id="t-how"><span data-lang="es">Cuatro pasos</span><span data-lang="en">Four steps</span></h2>
+      <ol class="steps">
+        <li class="reveal"><div><h3><span data-lang="es">Describe el organismo</span><span data-lang="en">Describe the organism</span></h3><p><span data-lang="es">Variables que se controlan, cómo responde al entorno y qué produce. Hay un preset de <em>Komagataeibacter xylinus</em> listo para usar.</span><span data-lang="en">The variables you control, how it responds to the environment and what it produces. A ready-to-use <em>Komagataeibacter xylinus</em> preset is included.</span></p></div></li>
+        <li class="reveal"><div><h3><span data-lang="es">Elige qué medir</span><span data-lang="en">Choose what to measure</span></h3><p><span data-lang="es">Rendimiento de un producto, eficiencia, tasa de crecimiento, tiempo de vida, supervivencia… o una métrica propia.</span><span data-lang="en">A product's yield, efficiency, growth rate, lifespan, survival… or a metric of your own.</span></p></div></li>
+        <li class="reveal"><div><h3><span data-lang="es">Optimiza</span><span data-lang="en">Optimize</span></h3><p><span data-lang="es">Línea base, exploración, refinamiento evolutivo y validación. Todo se imprime en consola y se anima en la ventana.</span><span data-lang="en">Baseline, exploration, evolutionary refinement and validation. Everything is printed to the console and animated in the window.</span></p></div></li>
+        <li class="reveal"><div><h3><span data-lang="es">Exporta</span><span data-lang="en">Export</span></h3><p><span data-lang="es"><code>evaluations.csv</code>, <code>results.json</code> y un XML con la mejor condición, listo para Unity.</span><span data-lang="en"><code>evaluations.csv</code>, <code>results.json</code> and an XML with the best condition, ready for Unity.</span></p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--bordered" id="window" aria-labelledby="t-window">
+    <div class="section__inner">
+      <p class="eyebrow reveal"><span data-lang="es">Ventana en vivo</span><span data-lang="en">Live window</span></p>
+      <h2 class="title reveal" id="t-window"><span data-lang="es">Mira cada simulación trabajar</span><span data-lang="en">Watch every simulation work</span></h2>
+      <p class="lead reveal"><span data-lang="es">Quién vive, muere o se divide; el tamaño de cada cápsula es su fase del ciclo celular y su color, su reserva; las fibras son lo producido y el brillo ámbar, el nutriente que queda. Solo las posiciones son decorativas.</span><span data-lang="en">Who lives, dies or divides; the size of each capsule is its phase of the cell cycle and its color its reserve; the fibers are what was produced and the amber glow the nutrient left. Only the positions are decorative.</span></p>
+      <div class="grid grid--2" style="margin-top:56px;gap:clamp(24px,3vw,48px)">
+        <figure class="reveal" style="margin:0"><div class="shot" data-parallax="-0.04"><picture><source srcset="../assets/img/lunagen-live-1.webp" type="image/webp"><img src="../assets/img/lunagen-live-1.png" width="1600" height="900" loading="lazy" alt="Lunagen live window with a Petri dish full of colonies" data-alt-es="Ventana en vivo de Lunagen con la caja Petri llena de colonias" data-alt-en="Lunagen live window with a Petri dish full of colonies"></picture></div>
+          <figcaption class="shot-caption"><span data-lang="es">Crecimiento de la población</span><span data-lang="en">Population growth</span></figcaption></figure>
+        <figure class="reveal" style="margin:0"><div class="shot" data-parallax="0.04"><picture><source srcset="../assets/img/lunagen-live-2.webp" type="image/webp"><img src="../assets/img/lunagen-live-2.png" width="1600" height="900" loading="lazy" alt="Lunagen live window at a later stage" data-alt-es="Ventana en vivo de Lunagen en una etapa posterior" data-alt-en="Lunagen live window at a later stage"></picture></div>
+          <figcaption class="shot-caption"><span data-lang="es">Nutriente agotado: las reservas se vacían</span><span data-lang="en">Nutrient exhausted: reserves run out</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bordered section--dark" id="code" aria-labelledby="t-code">
+    <div class="section__inner">
+      <p class="eyebrow reveal"><span data-lang="es">Código</span><span data-lang="en">Code</span></p>
+      <h2 class="title reveal" id="t-code"><span data-lang="es">Pocas líneas, muchas preguntas</span><span data-lang="en">A few lines, many questions</span></h2>
+      <div class="grid grid--2" style="margin-top:44px;align-items:start">
+        <div><div data-lang="es"><div class="code reveal"><pre><code><span class="k">import</span> lunagen <span class="k">as</span> lg
+
+<span class="k">if</span> __name__ == <span class="s">&quot;__main__&quot;</span>:
+    organismo = lg.presets.<span class="f">komagataeibacter_xylinus</span>()
+    estudio = lg.<span class="f">Study</span>(organismo, objective=<span class="s">&quot;yield[cellulose]&quot;</span>, workers=4)
+    resultado = estudio.<span class="f">optimize</span>(samples=60, generations=8, population=16, viz=<span class="k">True</span>)
+    <span class="f">print</span>(resultado.best_conditions, resultado.best_value)</code></pre><button class="copy" type="button"><span data-lang="es">Copiar</span><span data-lang="en">Copy</span></button></div></div><div data-lang="en"><div class="code reveal"><pre><code><span class="k">import</span> lunagen <span class="k">as</span> lg
+
+<span class="k">if</span> __name__ == <span class="s">&quot;__main__&quot;</span>:
+    organism = lg.presets.<span class="f">komagataeibacter_xylinus</span>()
+    study = lg.<span class="f">Study</span>(organism, objective=<span class="s">&quot;yield[cellulose]&quot;</span>, workers=4)
+    result = study.<span class="f">optimize</span>(samples=60, generations=8, population=16, viz=<span class="k">True</span>)
+    <span class="f">print</span>(result.best_conditions, result.best_value)</code></pre><button class="copy" type="button"><span data-lang="es">Copiar</span><span data-lang="en">Copy</span></button></div></div></div>
+        <div><div data-lang="es"><div class="code reveal"><pre><code><span class="c"># Otra pregunta, el mismo organismo</span>
+lg.<span class="f">Study</span>(org, objective=<span class="s">&quot;mean_lifespan_h&quot;</span>, space=[<span class="s">&quot;temperature_c&quot;</span>, <span class="s">&quot;ph&quot;</span>])        <span class="c"># tiempo de vida</span>
+lg.<span class="f">Study</span>(org, objective=<span class="s">&quot;doubling_time_h&quot;</span>, direction=<span class="s">&quot;min&quot;</span>)                      <span class="c"># reproducción</span>
+lg.<span class="f">Study</span>(org, objective={<span class="s">&quot;yield[cellulose]&quot;</span>: 1.0, <span class="s">&quot;survival_fraction&quot;</span>: 2.0},     <span class="c"># varios objetivos</span>
+         constraints=[(<span class="s">&quot;final_population&quot;</span>, <span class="s">&quot;&gt;=&quot;</span>, 100)])                          <span class="c"># y restricciones</span>
+
+<span class="c"># Operar solo con algunas variables</span>
+lg.<span class="f">Study</span>(org, space=[<span class="s">&quot;temperature_c&quot;</span>, <span class="s">&quot;ph&quot;</span>], fixed={<span class="s">&quot;glucose_gl&quot;</span>: 30})
+
+<span class="c"># Una métrica propia</span>
+@lg.<span class="f">metric</span>(<span class="s">&quot;viabilidad&quot;</span>, unit=<span class="s">&quot;%&quot;</span>)
+<span class="k">def</span> <span class="f">viabilidad</span>(result, cond, ctx):
+    <span class="k">return</span> 100 * result.final_alive / <span class="f">max</span>(1, result.peak_alive)</code></pre><button class="copy" type="button"><span data-lang="es">Copiar</span><span data-lang="en">Copy</span></button></div></div><div data-lang="en"><div class="code reveal"><pre><code><span class="c"># Another question, same organism</span>
+lg.<span class="f">Study</span>(org, objective=<span class="s">&quot;mean_lifespan_h&quot;</span>, space=[<span class="s">&quot;temperature_c&quot;</span>, <span class="s">&quot;ph&quot;</span>])        <span class="c"># lifespan</span>
+lg.<span class="f">Study</span>(org, objective=<span class="s">&quot;doubling_time_h&quot;</span>, direction=<span class="s">&quot;min&quot;</span>)                      <span class="c"># reproduction</span>
+lg.<span class="f">Study</span>(org, objective={<span class="s">&quot;yield[cellulose]&quot;</span>: 1.0, <span class="s">&quot;survival_fraction&quot;</span>: 2.0},     <span class="c"># several goals</span>
+         constraints=[(<span class="s">&quot;final_population&quot;</span>, <span class="s">&quot;&gt;=&quot;</span>, 100)])                          <span class="c"># and constraints</span>
+
+<span class="c"># Work with only some variables</span>
+lg.<span class="f">Study</span>(org, space=[<span class="s">&quot;temperature_c&quot;</span>, <span class="s">&quot;ph&quot;</span>], fixed={<span class="s">&quot;glucose_gl&quot;</span>: 30})
+
+<span class="c"># A metric of your own</span>
+@lg.<span class="f">metric</span>(<span class="s">&quot;viability&quot;</span>, unit=<span class="s">&quot;%&quot;</span>)
+<span class="k">def</span> <span class="f">viability</span>(result, cond, ctx):
+    <span class="k">return</span> 100 * result.final_alive / <span class="f">max</span>(1, result.peak_alive)</code></pre><button class="copy" type="button"><span data-lang="es">Copiar</span><span data-lang="en">Copy</span></button></div></div></div>
+      </div>
+      <h3 class="eyebrow reveal" style="margin-top:72px"><span data-lang="es">Métricas incluidas</span><span data-lang="en">Built-in metrics</span></h3>
+      <div class="chips reveal"><span class="chip">yield[p]</span><span class="chip">efficiency[p]</span><span class="chip">productivity[p]</span><span class="chip">max_growth_rate</span><span class="chip">doubling_time_h</span><span class="chip">peak_population</span><span class="chip">final_population</span><span class="chip">mean_lifespan_h</span><span class="chip">median_lifespan_h</span><span class="chip">survival_fraction</span><span class="chip">extinction_time_h</span><span class="chip">death_fraction[cause]</span><span class="chip">nutrient_consumed_fraction</span><span class="chip">total_divisions</span><span class="chip">+ <span data-lang="es">las tuyas</span><span data-lang="en">your own</span></span></div>
+    </div>
+  </section>
+
+  <section class="section section--bordered cta" aria-labelledby="t-cta">
+    <div class="section__inner">
+      <h2 class="title reveal" id="t-cta"><span data-lang="es">Empieza con la documentación</span><span data-lang="en">Start with the documentation</span></h2>
+      <p class="lead reveal"><span data-lang="es">Conceptos, el modelo y sus ecuaciones, cómo describir un organismo nuevo, calibración, referencia de la API y más.</span><span data-lang="en">Concepts, the model and its equations, how to describe a new organism, calibration, the API reference and more.</span></p>
+      <div class="actions reveal">
+        <a class="btn" href="docs/"><span data-lang="es">Abrir la documentación</span><span data-lang="en">Open the documentation</span> <span class="arrow">→</span></a>
+        <a class="btn btn--ghost" href="https://pypi.org/project/lunagen/" target="_blank" rel="noopener">PyPI ↗</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+<footer class="site-footer">
+  <a class="brand" href="../">SATSH</a>
+  <div class="links">
+    <a href="../lunagen/">Lunagen</a>
+    <a href="../lunagen/docs/"><span data-lang="es">Documentación</span><span data-lang="en">Documentation</span></a>
+    <a href="https://impara.org" target="_blank" rel="noopener">Impara&nbsp;↗</a>
+    <a href="https://pypi.org/project/lunagen/" target="_blank" rel="noopener">PyPI&nbsp;↗</a>
+  </div>
+  <span>© <span data-year>2026</span> satsh</span>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>
